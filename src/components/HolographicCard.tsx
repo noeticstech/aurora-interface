@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ElectricBorder from './ElectricBorder';
 
 interface HolographicCardProps {
   onSlashComplete: () => void;
@@ -26,64 +27,72 @@ const HolographicCard = ({ onSlashComplete }: HolographicCardProps) => {
       >
         <div className="pc-behind" />
         
-        <div className="pc-card-shell">
-          <section className="pc-card">
-            <div className="pc-inside">
-              <div className="pc-shine" />
-              <div className="pc-glare" />
-              
-              <div className="pc-content pc-avatar-content">
-                <img 
-                  className="avatar" 
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80" 
-                  alt="Kaito Yamamoto" 
-                  style={{ pointerEvents: 'none' }}
-                />
-              </div>
-              
-              <div className="pc-content" style={{ pointerEvents: 'none' }}>
-                <div className="pc-details">
-                  <h3>KAITO YAMAMOTO</h3>
-                  <p>Creative Engineer</p>
-                </div>
-              </div>
-            </div>
-
-            {showSlash && (
-              <>
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                  <div 
-                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-foreground to-transparent opacity-90"
-                    style={{
-                      width: '2px',
-                      height: '200%',
-                      transform: 'rotate(-25deg) translateX(-100%)',
-                      animation: 'slash 180ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
-                      boxShadow: '0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.4)'
-                    }}
+        <ElectricBorder 
+          color="#7c3aed" 
+          speed={1.2} 
+          chaos={0.8} 
+          thickness={2}
+          style={{ borderRadius: '30px' }}
+        >
+          <div className="pc-card-shell">
+            <section className="pc-card">
+              <div className="pc-inside">
+                <div className="pc-shine" />
+                <div className="pc-glare" />
+                
+                <div className="pc-content pc-avatar-content">
+                  <img 
+                    className="avatar" 
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80" 
+                    alt="Kaito Yamamoto" 
+                    style={{ pointerEvents: 'none' }}
                   />
                 </div>
                 
-                <div 
-                  className="absolute inset-0 bg-background/90"
-                  style={{
-                    clipPath: 'polygon(0 0, 100% 0, 70% 100%, 0 100%)',
-                    animation: 'split-left 400ms cubic-bezier(0.4, 0, 0.2, 1) 180ms forwards',
-                    borderRadius: '30px'
-                  }}
-                />
-                <div 
-                  className="absolute inset-0 bg-background/90"
-                  style={{
-                    clipPath: 'polygon(70% 0, 100% 0, 100% 100%, 0 100%)',
-                    animation: 'split-right 400ms cubic-bezier(0.4, 0, 0.2, 1) 180ms forwards',
-                    borderRadius: '30px'
-                  }}
-                />
-              </>
-            )}
-          </section>
-        </div>
+                <div className="pc-content" style={{ pointerEvents: 'none' }}>
+                  <div className="pc-details">
+                    <h3>KAITO YAMAMOTO</h3>
+                    <p>Creative Engineer</p>
+                  </div>
+                </div>
+              </div>
+
+              {showSlash && (
+                <>
+                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    <div 
+                      className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-foreground to-transparent opacity-90"
+                      style={{
+                        width: '2px',
+                        height: '200%',
+                        transform: 'rotate(-25deg) translateX(-100%)',
+                        animation: 'slash 180ms cubic-bezier(0.4, 0, 0.2, 1) forwards',
+                        boxShadow: '0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.4)'
+                      }}
+                    />
+                  </div>
+                  
+                  <div 
+                    className="absolute inset-0 bg-background/90"
+                    style={{
+                      clipPath: 'polygon(0 0, 100% 0, 70% 100%, 0 100%)',
+                      animation: 'split-left 400ms cubic-bezier(0.4, 0, 0.2, 1) 180ms forwards',
+                      borderRadius: '30px'
+                    }}
+                  />
+                  <div 
+                    className="absolute inset-0 bg-background/90"
+                    style={{
+                      clipPath: 'polygon(70% 0, 100% 0, 100% 100%, 0 100%)',
+                      animation: 'split-right 400ms cubic-bezier(0.4, 0, 0.2, 1) 180ms forwards',
+                      borderRadius: '30px'
+                    }}
+                  />
+                </>
+              )}
+            </section>
+          </div>
+        </ElectricBorder>
 
         <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-background/60 blur-3xl rounded-full" />
       </div>

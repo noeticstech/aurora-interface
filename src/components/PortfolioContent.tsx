@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Moon, Mail, Github, Linkedin } from 'lucide-react';
 import Aurora from './Aurora';
+import CertificateCarousel from './CertificateCarousel';
 
 const projects = [
   { id: 1, title: "Void Engine", description: "Real-time rendering system built in silence" },
@@ -83,6 +84,23 @@ const PortfolioContent = () => {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mb-32">
+          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
+            <span>Certifications</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
+          </h3>
+          
+          <div className="flex justify-center">
+            <CertificateCarousel 
+              baseWidth={320}
+              autoplay={true}
+              autoplayDelay={4000}
+              pauseOnHover={true}
+              loop={true}
+            />
           </div>
         </section>
 

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Moon, Mail, Github, Linkedin } from 'lucide-react';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
+import LogoLoop from './LogoLoop';
 
 const projects = [
   { id: 1, title: "Void Engine", description: "Real-time rendering system built in silence" },
@@ -11,8 +12,14 @@ const projects = [
 ];
 
 const skills = [
-  "React", "Node.js", "TypeScript", "Python",
-  "WebGL", "System Design", "Algorithm Engineering", "Performance"
+  { name: "React", node: <span className="text-foreground/80 font-medium tracking-wide">React</span> },
+  { name: "Node.js", node: <span className="text-foreground/80 font-medium tracking-wide">Node.js</span> },
+  { name: "TypeScript", node: <span className="text-foreground/80 font-medium tracking-wide">TypeScript</span> },
+  { name: "Python", node: <span className="text-foreground/80 font-medium tracking-wide">Python</span> },
+  { name: "WebGL", node: <span className="text-foreground/80 font-medium tracking-wide">WebGL</span> },
+  { name: "System Design", node: <span className="text-foreground/80 font-medium tracking-wide">System Design</span> },
+  { name: "Algorithm", node: <span className="text-foreground/80 font-medium tracking-wide">Algorithm</span> },
+  { name: "Performance", node: <span className="text-foreground/80 font-medium tracking-wide">Performance</span> },
 ];
 
 const PortfolioContent = () => {
@@ -110,12 +117,19 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {skills.map((skill, i) => (
-              <div key={i} className="text-muted-foreground text-sm py-3 border-b border-secondary hover:text-foreground/80 hover:border-border transition-all duration-300 backdrop-blur-sm">
-                {skill}
-              </div>
-            ))}
+          <div className="relative overflow-hidden py-4">
+            <LogoLoop
+              logos={skills.map(s => ({ node: s.node }))}
+              speed={60}
+              direction="left"
+              logoHeight={24}
+              gap={48}
+              pauseOnHover={true}
+              scaleOnHover={true}
+              fadeOut={true}
+              fadeOutColor="hsl(var(--background))"
+              ariaLabel="Skills"
+            />
           </div>
         </section>
 

@@ -1,14 +1,16 @@
-import { useState } from 'react';
 import { Moon, Mail, Github, Linkedin } from 'lucide-react';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
 import LogoLoop from './LogoLoop';
+import MagicBento from './MagicBento';
 
 const projects = [
-  { id: 1, title: "Void Engine", description: "Real-time rendering system built in silence" },
-  { id: 2, title: "Shadow Protocol", description: "Distributed architecture for the invisible" },
-  { id: 3, title: "Eclipse Framework", description: "Minimal core. Maximum precision" },
-  { id: 4, title: "Silent Compiler", description: "Code that speaks through absence" }
+  { color: '#060010', title: "Void Engine", description: "Real-time rendering system built in silence", label: "Engine" },
+  { color: '#060010', title: "Shadow Protocol", description: "Distributed architecture for the invisible", label: "Architecture" },
+  { color: '#060010', title: "Eclipse Framework", description: "Minimal core. Maximum precision", label: "Framework" },
+  { color: '#060010', title: "Silent Compiler", description: "Code that speaks through absence", label: "Compiler" },
+  { color: '#060010', title: "Phantom Cache", description: "Memory optimization at the edge", label: "Performance" },
+  { color: '#060010', title: "Night Vision", description: "Analytics that see in the dark", label: "Analytics" }
 ];
 
 const skills = [
@@ -23,8 +25,6 @@ const skills = [
 ];
 
 const PortfolioContent = () => {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-
   return (
     <div className="absolute inset-0 z-10 opacity-0 animate-fade-in">
       {/* Aurora Background Layer */}
@@ -63,35 +63,15 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {projects.map((project) => (
-              <div
-                key={project.id}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
-                className="relative group cursor-pointer"
-              >
-                <div className="relative bg-card/80 backdrop-blur-sm border border-border/40 p-8 h-64 transition-all duration-500 hover:border-muted-foreground/30 hover:bg-card/90">
-                  <div className={`absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent transition-opacity duration-500 ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`} />
-                  
-                  <div className="relative z-10 h-full flex flex-col justify-between">
-                    <div className={`transition-all duration-500 ${hoveredProject === project.id ? 'opacity-100 translate-y-0' : 'opacity-60 translate-y-2'}`}>
-                      <h4 className="text-xl font-display text-foreground/90 mb-4">
-                        {project.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {project.description}
-                      </p>
-                    </div>
-                    
-                    <div className={`text-xs text-muted-foreground transition-all duration-500 ${hoveredProject === project.id ? 'opacity-100' : 'opacity-0'}`}>
-                      →
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <MagicBento 
+            cardData={projects}
+            enableSpotlight={true}
+            enableBorderGlow={true}
+            enableStars={true}
+            enableMagnetism={true}
+            clickEffect={true}
+            glowColor="132, 0, 255"
+          />
         </section>
 
         <section className="mb-32">

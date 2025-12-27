@@ -1,8 +1,9 @@
-import { Moon, Mail, Github, Linkedin } from 'lucide-react';
+import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
 import LogoLoop from './LogoLoop';
 import MagicBento from './MagicBento';
+import Dock from './Dock';
 
 const projects = [
   { color: '#060010', title: "Void Engine", description: "Real-time rendering system built in silence", label: "Engine" },
@@ -132,21 +133,43 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="flex items-center gap-8">
-            <a href="mailto:kaito@example.com" className="flex items-center gap-3 text-muted-foreground hover:text-foreground/80 transition-colors duration-300 group">
-              <Mail className="w-5 h-5" strokeWidth={1.5} />
-              <span className="text-sm border-b border-transparent group-hover:border-border transition-colors">
-                kaito@example.com
-              </span>
-            </a>
+          <div className="flex flex-col items-center gap-8">
+            <p className="text-muted-foreground text-center max-w-md">
+              Ready to forge something extraordinary? Reach out through any channel.
+            </p>
             
-            <a href="#" className="text-muted-foreground hover:text-foreground/70 transition-colors duration-300">
-              <Github className="w-5 h-5" strokeWidth={1.5} />
-            </a>
+            <Dock
+              items={[
+                {
+                  icon: <Twitter className="w-6 h-6" strokeWidth={1.5} />,
+                  label: "X / Twitter",
+                  onClick: () => window.open('https://twitter.com', '_blank')
+                },
+                {
+                  icon: <Linkedin className="w-6 h-6" strokeWidth={1.5} />,
+                  label: "LinkedIn",
+                  onClick: () => window.open('https://linkedin.com', '_blank')
+                },
+                {
+                  icon: <Github className="w-6 h-6" strokeWidth={1.5} />,
+                  label: "GitHub",
+                  onClick: () => window.open('https://github.com', '_blank')
+                },
+                {
+                  icon: <Mail className="w-6 h-6" strokeWidth={1.5} />,
+                  label: "Email",
+                  onClick: () => window.location.href = 'mailto:kaito@example.com'
+                }
+              ]}
+              magnification={70}
+              distance={150}
+              baseItemSize={50}
+              panelHeight={64}
+            />
             
-            <a href="#" className="text-muted-foreground hover:text-foreground/70 transition-colors duration-300">
-              <Linkedin className="w-5 h-5" strokeWidth={1.5} />
-            </a>
+            <p className="text-xs text-muted-foreground/60 tracking-wider">
+              kaito@example.com
+            </p>
           </div>
         </section>
 

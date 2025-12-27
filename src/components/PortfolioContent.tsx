@@ -4,6 +4,7 @@ import CertificateCarousel from './CertificateCarousel';
 import LogoLoop from './LogoLoop';
 import MagicBento from './MagicBento';
 import Dock from './Dock';
+import ClickSpark from './ClickSpark';
 
 const projects = [
   { color: '#060010', title: "Void Engine", description: "Real-time rendering system built in silence", label: "Engine" },
@@ -133,43 +134,51 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="flex flex-col items-center gap-6">
-            <Dock
-              items={[
-                {
-                  icon: <Twitter className="w-6 h-6" strokeWidth={1.5} />,
-                  label: "X / Twitter",
-                  onClick: () => window.open('https://twitter.com', '_blank')
-                },
-                {
-                  icon: <Linkedin className="w-6 h-6" strokeWidth={1.5} />,
-                  label: "LinkedIn",
-                  onClick: () => window.open('https://linkedin.com', '_blank')
-                },
-                {
-                  icon: <Github className="w-6 h-6" strokeWidth={1.5} />,
-                  label: "GitHub",
-                  onClick: () => window.open('https://github.com', '_blank')
-                },
-                {
-                  icon: <Mail className="w-6 h-6" strokeWidth={1.5} />,
-                  label: "Email",
-                  onClick: () => window.location.href = 'mailto:kaito@example.com'
-                }
-              ]}
-              magnification={70}
-              distance={150}
-              baseItemSize={50}
-            />
-            
-            <p className="text-muted-foreground text-center max-w-md">
-              Ready to forge something extraordinary? Reach out through any channel.
-            </p>
-            
-            <p className="text-xs text-muted-foreground/60 tracking-wider">
-              kaito@example.com
-            </p>
-          </div>
+          <ClickSpark
+            sparkColor="rgba(132, 0, 255, 1)"
+            sparkSize={12}
+            sparkRadius={25}
+            sparkCount={10}
+            duration={500}
+          >
+            <div className="flex flex-col items-center gap-6 py-8">
+              <Dock
+                items={[
+                  {
+                    icon: <Twitter className="w-6 h-6" strokeWidth={1.5} />,
+                    label: "X / Twitter",
+                    onClick: () => window.open('https://twitter.com', '_blank')
+                  },
+                  {
+                    icon: <Linkedin className="w-6 h-6" strokeWidth={1.5} />,
+                    label: "LinkedIn",
+                    onClick: () => window.open('https://linkedin.com', '_blank')
+                  },
+                  {
+                    icon: <Github className="w-6 h-6" strokeWidth={1.5} />,
+                    label: "GitHub",
+                    onClick: () => window.open('https://github.com', '_blank')
+                  },
+                  {
+                    icon: <Mail className="w-6 h-6" strokeWidth={1.5} />,
+                    label: "Email",
+                    onClick: () => window.location.href = 'mailto:kaito@example.com'
+                  }
+                ]}
+                magnification={70}
+                distance={150}
+                baseItemSize={50}
+              />
+              
+              <p className="text-muted-foreground text-center max-w-md">
+                Ready to forge something extraordinary? Reach out through any channel.
+              </p>
+              
+              <p className="text-xs text-muted-foreground/60 tracking-wider">
+                kaito@example.com
+              </p>
+            </div>
+          </ClickSpark>
         </section>
 
       </div>

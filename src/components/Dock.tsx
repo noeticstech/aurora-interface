@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { Children, cloneElement, useEffect, useRef, useState, ReactElement, ReactNode } from 'react';
+import { Children, cloneElement, useEffect, useRef, useState, ReactElement, ReactNode, forwardRef } from 'react';
 import './Dock.css';
 
 interface DockItemProps {
@@ -115,18 +115,18 @@ interface DockProps {
   baseItemSize?: number;
 }
 
-export default function Dock({
+const Dock = forwardRef<HTMLDivElement, DockProps>(({
   items,
   className = '',
   spring = { mass: 0.1, stiffness: 150, damping: 12 },
   magnification = 70,
   distance = 200,
   baseItemSize = 50
-}: DockProps) {
+}, ref) => {
   const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="dock-outer">
+    <div className="dock-outer" ref={ref}>
       <div
         onMouseMove={(e) => {
           mouseX.set(e.pageX);
@@ -156,4 +156,8 @@ export default function Dock({
       </div>
     </div>
   );
-}
+});
+
+Dock.displayName = 'Dock';
+
+export default Dock;

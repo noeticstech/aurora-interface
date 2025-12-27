@@ -133,11 +133,7 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="flex flex-col items-center gap-8">
-            <p className="text-muted-foreground text-center max-w-md">
-              Ready to forge something extraordinary? Reach out through any channel.
-            </p>
-            
+          <div className="flex flex-col items-center gap-6">
             <Dock
               items={[
                 {
@@ -164,8 +160,11 @@ const PortfolioContent = () => {
               magnification={70}
               distance={150}
               baseItemSize={50}
-              panelHeight={64}
             />
+            
+            <p className="text-muted-foreground text-center max-w-md">
+              Ready to forge something extraordinary? Reach out through any channel.
+            </p>
             
             <p className="text-xs text-muted-foreground/60 tracking-wider">
               kaito@example.com

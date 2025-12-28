@@ -5,6 +5,7 @@ import LogoLoop from './LogoLoop';
 import MagicBento from './MagicBento';
 import Dock from './Dock';
 import ClickSpark from './ClickSpark';
+import AnimatedContent from './AnimatedContent';
 
 const projects = [
   { color: '#060010', title: "Void Engine", description: "Real-time rendering system built in silence", label: "Engine" },
@@ -57,6 +58,21 @@ const PortfolioContent = () => {
             </div>
             <Moon className="w-6 h-6 text-muted-foreground opacity-40" strokeWidth={1} />
           </div>
+          
+          <AnimatedContent
+            direction="horizontal"
+            distance={150}
+            reverse={false}
+            duration={1}
+            delay={0.3}
+            ease="power3.out"
+            className="mt-8"
+          >
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+              Crafting digital experiences at the intersection of design and technology. 
+              I transform complex problems into elegant, minimal solutions.
+            </p>
+          </AnimatedContent>
         </header>
 
         <section className="mb-32">

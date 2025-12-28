@@ -6,7 +6,6 @@ import MagicBento from './MagicBento';
 import Dock from './Dock';
 import ClickSpark from './ClickSpark';
 import AnimatedContent from './AnimatedContent';
-import MusicPlayer from './MusicPlayer';
 
 const projects = [
   { color: '#060010', title: "Void Engine", description: "Real-time rendering system built in silence", label: "Engine" },
@@ -31,8 +30,6 @@ const skills = [
 const PortfolioContent = () => {
   return (
     <div className="absolute inset-0 z-10 opacity-0 animate-fade-in">
-      {/* Music Player */}
-      <MusicPlayer />
       {/* Aurora Background Layer */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
         <Aurora 

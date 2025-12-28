@@ -63,9 +63,9 @@ const PortfolioContent = () => {
             direction="horizontal"
             distance={150}
             reverse={false}
-            duration={1}
-            delay={0.3}
-            ease="power3.out"
+            duration={1.8}
+            delay={0.8}
+            ease="power2.out"
             className="mt-8"
           >
             <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">

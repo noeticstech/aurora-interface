@@ -49,7 +49,7 @@ const PortfolioContent = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-display text-foreground mb-2">
-                KAITO YAMAMOTO
+                VAIBHAV SINGH KUSHWAHA
               </h2>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <div className="w-2 h-px bg-border" />

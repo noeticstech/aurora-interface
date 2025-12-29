@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
+import { Play, Pause } from 'lucide-react';
 import ElectricBorder from './ElectricBorder';
-import ElasticSlider from './ElasticSlider';
 
 interface HolographicCardProps {
   onSlashComplete: () => void;
@@ -8,15 +8,13 @@ interface HolographicCardProps {
 
 const HolographicCard = ({ onSlashComplete }: HolographicCardProps) => {
   const [showSlash, setShowSlash] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     audioRef.current = new Audio('https://www.soundjay.com/ambient/sounds/rain-03.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
-
-    // Start playing automatically
-    audioRef.current.play().catch(console.log);
 
     return () => {
       if (audioRef.current) {
@@ -26,24 +24,30 @@ const HolographicCard = ({ onSlashComplete }: HolographicCardProps) => {
     };
   }, []);
 
-  const handleVolumeChange = (value: number) => {
-    if (audioRef.current) {
-      audioRef.current.volume = value / 100;
-      // Auto-play when volume is adjusted
-      if (value > 0 && audioRef.current.paused) {
-        audioRef.current.play().catch(console.log);
-      }
-    }
-  };
-
   const handleCardClick = (e: React.MouseEvent) => {
-    // Ignore clicks on the slider area
-    if ((e.target as HTMLElement).closest('.slider-container')) return;
+    // Ignore clicks on the music button
+    if ((e.target as HTMLElement).closest('.music-btn')) return;
     
     setShowSlash(true);
     setTimeout(() => {
       onSlashComplete();
     }, 180);
+  };
+
+  const toggleMusic = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!audioRef.current) return;
+
+    try {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        await audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    } catch (error) {
+      console.log('Audio playback failed:', error);
+    }
   };
 
   return (
@@ -87,18 +91,21 @@ const HolographicCard = ({ onSlashComplete }: HolographicCardProps) => {
                   </div>
                 </div>
 
-                {/* Volume Slider at Bottom */}
+                {/* Music Button at Bottom */}
                 <div 
-                  className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10"
+                  className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10"
                   style={{ pointerEvents: 'auto' }}
-                  onClick={(e) => e.stopPropagation()}
                 >
-                  <ElasticSlider
-                    defaultValue={50}
-                    startingValue={0}
-                    maxValue={100}
-                    onChange={handleVolumeChange}
-                  />
+                  <button
+                    onClick={toggleMusic}
+                    className="music-btn w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300 group"
+                  >
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5 text-white/80 group-hover:text-white" />
+                    ) : (
+                      <Play className="w-5 h-5 text-white/80 group-hover:text-white ml-0.5" />
+                    )}
+                  </button>
                 </div>
               </div>
 

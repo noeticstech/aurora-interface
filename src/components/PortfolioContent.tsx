@@ -163,22 +163,22 @@ const PortfolioContent = () => {
                   {
                     icon: <Twitter className="w-6 h-6" strokeWidth={1.5} />,
                     label: "X / Twitter",
-                    onClick: () => window.open('https://twitter.com', '_blank')
+                    onClick: () => window.open('https://x.com/noeticstech', '_blank')
                   },
                   {
                     icon: <Linkedin className="w-6 h-6" strokeWidth={1.5} />,
                     label: "LinkedIn",
-                    onClick: () => window.open('https://linkedin.com', '_blank')
+                    onClick: () => window.open('https://www.linkedin.com/in/vaibhav-singh-kushwaha-1941813a1/', '_blank')
                   },
                   {
                     icon: <Github className="w-6 h-6" strokeWidth={1.5} />,
                     label: "GitHub",
-                    onClick: () => window.open('https://github.com', '_blank')
+                    onClick: () => window.open('https://github.com/noeticstech', '_blank')
                   },
                   {
                     icon: <Mail className="w-6 h-6" strokeWidth={1.5} />,
                     label: "Email",
-                    onClick: () => window.location.href = 'mailto:kaito@example.com'
+                    onClick: () => window.location.href = 'mailto:realvaibhav2005@gmail.com'
                   }
                 ]}
                 magnification={70}
@@ -191,7 +191,7 @@ const PortfolioContent = () => {
               </p>
               
               <p className="text-xs text-muted-foreground/60 tracking-wider">
-                kaito@example.com
+                realvaibhav2005@gmail.com
               </p>
             </div>
           </ClickSpark>

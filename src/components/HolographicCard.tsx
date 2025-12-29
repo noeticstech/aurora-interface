@@ -86,7 +86,7 @@ const HolographicCard = ({ onSlashComplete }: HolographicCardProps) => {
                 
                 <div className="pc-content" style={{ pointerEvents: 'none' }}>
                   <div className="pc-details">
-                    <h3>KAITO YAMAMOTO</h3>
+                    <h3>VAIBHAV SINGH KUSHWAHA</h3>
                     <p>Creative Engineer</p>
                   </div>
                 </div>

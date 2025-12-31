@@ -1,4 +1,5 @@
-import { Moon, Mail, Github, Linkedin, Twitter, Atom, Server, FileCode2, Terminal, Box, Layers, Binary, Zap } from 'lucide-react';
+import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
 import LogoLoop from './LogoLoop';
@@ -17,14 +18,14 @@ const projects = [
 ];
 
 const skills = [
-  { name: "React", node: <Atom className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "Node.js", node: <Server className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "TypeScript", node: <FileCode2 className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "Python", node: <Terminal className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "WebGL", node: <Box className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "System Design", node: <Layers className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "Algorithm", node: <Binary className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
-  { name: "Performance", node: <Zap className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "React", node: <SiReact className="w-8 h-8 text-[#61DAFB]" /> },
+  { name: "Node.js", node: <SiNodedotjs className="w-8 h-8 text-[#339933]" /> },
+  { name: "TypeScript", node: <SiTypescript className="w-8 h-8 text-[#3178C6]" /> },
+  { name: "Python", node: <SiPython className="w-8 h-8 text-[#3776AB]" /> },
+  { name: "Three.js", node: <SiThreedotjs className="w-8 h-8 text-foreground" /> },
+  { name: "Docker", node: <SiDocker className="w-8 h-8 text-[#2496ED]" /> },
+  { name: "Git", node: <SiGit className="w-8 h-8 text-[#F05032]" /> },
+  { name: "Tailwind", node: <SiTailwindcss className="w-8 h-8 text-[#06B6D4]" /> },
 ];
 
 const PortfolioContent = () => {

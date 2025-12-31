@@ -18,14 +18,14 @@ const projects = [
 ];
 
 const skills = [
-  { name: "React", node: <SiReact className="w-8 h-8 text-[#61DAFB]" /> },
-  { name: "Node.js", node: <SiNodedotjs className="w-8 h-8 text-[#339933]" /> },
-  { name: "TypeScript", node: <SiTypescript className="w-8 h-8 text-[#3178C6]" /> },
-  { name: "Python", node: <SiPython className="w-8 h-8 text-[#3776AB]" /> },
-  { name: "Three.js", node: <SiThreedotjs className="w-8 h-8 text-foreground" /> },
-  { name: "Docker", node: <SiDocker className="w-8 h-8 text-[#2496ED]" /> },
-  { name: "Git", node: <SiGit className="w-8 h-8 text-[#F05032]" /> },
-  { name: "Tailwind", node: <SiTailwindcss className="w-8 h-8 text-[#06B6D4]" /> },
+  { name: "React", node: <SiReact className="w-12 h-12 text-[#61DAFB]" /> },
+  { name: "Node.js", node: <SiNodedotjs className="w-12 h-12 text-[#339933]" /> },
+  { name: "TypeScript", node: <SiTypescript className="w-12 h-12 text-[#3178C6]" /> },
+  { name: "Python", node: <SiPython className="w-12 h-12 text-[#3776AB]" /> },
+  { name: "Three.js", node: <SiThreedotjs className="w-12 h-12 text-foreground" /> },
+  { name: "Docker", node: <SiDocker className="w-12 h-12 text-[#2496ED]" /> },
+  { name: "Git", node: <SiGit className="w-12 h-12 text-[#F05032]" /> },
+  { name: "Tailwind", node: <SiTailwindcss className="w-12 h-12 text-[#06B6D4]" /> },
 ];
 
 const PortfolioContent = () => {
@@ -121,8 +121,8 @@ const PortfolioContent = () => {
               logos={skills.map(s => ({ node: s.node }))}
               speed={60}
               direction="left"
-              logoHeight={24}
-              gap={48}
+              logoHeight={48}
+              gap={64}
               pauseOnHover={true}
               scaleOnHover={true}
               fadeOut={true}

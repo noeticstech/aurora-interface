@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import HolographicCard from '@/components/HolographicCard';
 import PortfolioContent from '@/components/PortfolioContent';
+import SplashCursor from '@/components/SplashCursor';
 
 const Index = () => {
   const [isSlashed, setIsSlashed] = useState(false);
 
   return (
     <div className="relative w-full h-screen bg-background overflow-hidden">
+      {/* Fluid cursor effect */}
+      <SplashCursor />
+      
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-card via-background to-card">
         <div className="absolute inset-0 opacity-30">

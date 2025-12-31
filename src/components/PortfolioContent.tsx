@@ -1,4 +1,4 @@
-import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Moon, Mail, Github, Linkedin, Twitter, Atom, Server, FileCode2, Terminal, Box, Layers, Binary, Zap } from 'lucide-react';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
 import LogoLoop from './LogoLoop';
@@ -17,14 +17,14 @@ const projects = [
 ];
 
 const skills = [
-  { name: "React", node: <span className="text-foreground/80 font-medium tracking-wide">React</span> },
-  { name: "Node.js", node: <span className="text-foreground/80 font-medium tracking-wide">Node.js</span> },
-  { name: "TypeScript", node: <span className="text-foreground/80 font-medium tracking-wide">TypeScript</span> },
-  { name: "Python", node: <span className="text-foreground/80 font-medium tracking-wide">Python</span> },
-  { name: "WebGL", node: <span className="text-foreground/80 font-medium tracking-wide">WebGL</span> },
-  { name: "System Design", node: <span className="text-foreground/80 font-medium tracking-wide">System Design</span> },
-  { name: "Algorithm", node: <span className="text-foreground/80 font-medium tracking-wide">Algorithm</span> },
-  { name: "Performance", node: <span className="text-foreground/80 font-medium tracking-wide">Performance</span> },
+  { name: "React", node: <Atom className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "Node.js", node: <Server className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "TypeScript", node: <FileCode2 className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "Python", node: <Terminal className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "WebGL", node: <Box className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "System Design", node: <Layers className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "Algorithm", node: <Binary className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
+  { name: "Performance", node: <Zap className="w-6 h-6 text-foreground/80" strokeWidth={1.5} /> },
 ];
 
 const PortfolioContent = () => {

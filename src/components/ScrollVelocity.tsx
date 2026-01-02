@@ -75,21 +75,23 @@ function VelocityRow({
     return `${wrap(-copyWidth, 0, v)}px`;
   });
 
-  const directionFactor = useRef(baseVelocity > 0 ? 1 : -1);
+  const directionFactor = useRef(1);
+  const baseDirection = baseVelocity > 0 ? 1 : -1;
 
   useAnimationFrame((_, delta) => {
-    const maxBoost = 20;
-    const vf = Math.min(maxBoost, Math.abs(velocityFactor.get()));
-
-    let moveBy = directionFactor.current * Math.abs(baseVelocity) * (delta / 1000);
-
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = baseVelocity > 0 ? -1 : 1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = baseVelocity > 0 ? 1 : -1;
+    const vf = velocityFactor.get();
+    
+    // Scroll down = positive velocity = both rows speed up in their own direction
+    // Scroll up = negative velocity = both rows reverse direction
+    if (vf < 0) {
+      directionFactor.current = -baseDirection;
+    } else {
+      directionFactor.current = baseDirection;
     }
 
-    moveBy += directionFactor.current * moveBy * vf;
+    const speedBoost = 1 + Math.min(15, Math.abs(vf));
+    const moveBy = directionFactor.current * Math.abs(baseVelocity) * speedBoost * (delta / 1000);
+    
     baseX.set(baseX.get() + moveBy);
   });
 

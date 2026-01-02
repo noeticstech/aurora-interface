@@ -17,15 +17,18 @@ const projects = [
   { color: '#060010', title: "Night Vision", description: "Analytics that see in the dark", label: "Analytics" }
 ];
 
-const skills = [
-  { name: "React", node: <SiReact className="w-12 h-12 text-[#61DAFB]" /> },
-  { name: "Node.js", node: <SiNodedotjs className="w-12 h-12 text-[#339933]" /> },
-  { name: "TypeScript", node: <SiTypescript className="w-12 h-12 text-[#3178C6]" /> },
-  { name: "Python", node: <SiPython className="w-12 h-12 text-[#3776AB]" /> },
-  { name: "Three.js", node: <SiThreedotjs className="w-12 h-12 text-foreground" /> },
-  { name: "Docker", node: <SiDocker className="w-12 h-12 text-[#2496ED]" /> },
-  { name: "Git", node: <SiGit className="w-12 h-12 text-[#F05032]" /> },
-  { name: "Tailwind", node: <SiTailwindcss className="w-12 h-12 text-[#06B6D4]" /> },
+const skillsRow1 = [
+  <span key="react" className="inline-flex items-center gap-3"><SiReact className="w-10 h-10 text-[#61DAFB]" /><span className="text-foreground/80 text-xl font-medium">React</span></span>,
+  <span key="node" className="inline-flex items-center gap-3"><SiNodedotjs className="w-10 h-10 text-[#339933]" /><span className="text-foreground/80 text-xl font-medium">Node.js</span></span>,
+  <span key="ts" className="inline-flex items-center gap-3"><SiTypescript className="w-10 h-10 text-[#3178C6]" /><span className="text-foreground/80 text-xl font-medium">TypeScript</span></span>,
+  <span key="python" className="inline-flex items-center gap-3"><SiPython className="w-10 h-10 text-[#3776AB]" /><span className="text-foreground/80 text-xl font-medium">Python</span></span>,
+];
+
+const skillsRow2 = [
+  <span key="three" className="inline-flex items-center gap-3"><SiThreedotjs className="w-10 h-10 text-foreground" /><span className="text-foreground/80 text-xl font-medium">Three.js</span></span>,
+  <span key="docker" className="inline-flex items-center gap-3"><SiDocker className="w-10 h-10 text-[#2496ED]" /><span className="text-foreground/80 text-xl font-medium">Docker</span></span>,
+  <span key="git" className="inline-flex items-center gap-3"><SiGit className="w-10 h-10 text-[#F05032]" /><span className="text-foreground/80 text-xl font-medium">Git</span></span>,
+  <span key="tailwind" className="inline-flex items-center gap-3"><SiTailwindcss className="w-10 h-10 text-[#06B6D4]" /><span className="text-foreground/80 text-xl font-medium">Tailwind</span></span>,
 ];
 
 const PortfolioContent = () => {
@@ -118,14 +121,10 @@ const PortfolioContent = () => {
           
           <div className="relative overflow-hidden py-8">
             <ScrollVelocity
-              texts={skills.map(s => (
-                <span key={s.name} className="inline-flex items-center gap-3 mx-4">
-                  {s.node}
-                  <span className="text-foreground/80">{s.name}</span>
-                </span>
-              ))}
-              velocity={50}
-              numCopies={4}
+              rows={[skillsRow1, skillsRow2]}
+              velocity={80}
+              numCopies={6}
+              velocityMapping={{ input: [0, 1000], output: [0, 8] }}
               className="inline-flex items-center"
             />
           </div>

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
@@ -32,6 +33,8 @@ const skillsRow2 = [
 ];
 
 const PortfolioContent = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="absolute inset-0 z-10 opacity-0 animate-fade-in">
       {/* Aurora Background Layer */}
@@ -47,7 +50,7 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood */}
       <div className="absolute inset-0 bg-background/40 pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 py-16 h-full overflow-y-auto">
+      <div ref={scrollRef} className="relative z-10 max-w-7xl mx-auto px-8 py-16 h-full overflow-y-auto">
         
         <header className="mb-24 pt-8">
           <div className="flex items-center justify-between">
@@ -121,10 +124,11 @@ const PortfolioContent = () => {
           
           <div className="relative overflow-hidden py-8">
             <ScrollVelocity
+              scrollContainerRef={scrollRef}
               rows={[skillsRow1, skillsRow2]}
-              velocity={80}
-              numCopies={6}
-              velocityMapping={{ input: [0, 1000], output: [0, 8] }}
+              velocity={40}
+              numCopies={4}
+              velocityMapping={{ input: [0, 600], output: [0, 14] }}
               className="inline-flex items-center"
             />
           </div>

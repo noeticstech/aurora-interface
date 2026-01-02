@@ -78,6 +78,9 @@ function VelocityRow({
   const directionFactor = useRef(baseVelocity > 0 ? 1 : -1);
 
   useAnimationFrame((_, delta) => {
+    const maxBoost = 20;
+    const vf = Math.min(maxBoost, Math.abs(velocityFactor.get()));
+
     let moveBy = directionFactor.current * Math.abs(baseVelocity) * (delta / 1000);
 
     if (velocityFactor.get() < 0) {
@@ -86,7 +89,7 @@ function VelocityRow({
       directionFactor.current = baseVelocity > 0 ? 1 : -1;
     }
 
-    moveBy += directionFactor.current * moveBy * Math.abs(velocityFactor.get());
+    moveBy += directionFactor.current * moveBy * vf;
     baseX.set(baseX.get() + moveBy);
   });
 

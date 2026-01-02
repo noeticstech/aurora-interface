@@ -2,7 +2,7 @@ import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
-import LogoLoop from './LogoLoop';
+import ScrollVelocity from './ScrollVelocity';
 import MagicBento from './MagicBento';
 import Dock from './Dock';
 import ClickSpark from './ClickSpark';
@@ -116,18 +116,17 @@ const PortfolioContent = () => {
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="relative overflow-hidden py-4">
-            <LogoLoop
-              logos={skills.map(s => ({ node: s.node }))}
-              speed={60}
-              direction="left"
-              logoHeight={48}
-              gap={64}
-              pauseOnHover={true}
-              scaleOnHover={true}
-              fadeOut={true}
-              fadeOutColor="hsl(var(--background))"
-              ariaLabel="Skills"
+          <div className="relative overflow-hidden py-8">
+            <ScrollVelocity
+              texts={skills.map(s => (
+                <span key={s.name} className="inline-flex items-center gap-3 mx-4">
+                  {s.node}
+                  <span className="text-foreground/80">{s.name}</span>
+                </span>
+              ))}
+              velocity={50}
+              numCopies={4}
+              className="inline-flex items-center"
             />
           </div>
         </section>

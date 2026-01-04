@@ -1,7 +1,7 @@
 import CardNav from './CardNav';
 import TextType from './TextType';
 import TiltedCard from './TiltedCard';
-import { ArrowRight, Eye } from 'lucide-react';
+import { Download, Eye } from 'lucide-react';
 import './EntryScreen.css';
 
 interface EntryScreenProps {
@@ -52,10 +52,33 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
     }
   };
 
+  const handleDownloadCV = () => {
+    // TODO: Add actual CV download link
+    window.open('/cv.pdf', '_blank');
+  };
+
   return (
     <div className="entry-screen">
-      {/* Background */}
-      <div className="entry-background" />
+      {/* Background with TiltedCard */}
+      <div className="entry-background">
+        <div className="entry-background-card">
+          <TiltedCard
+            imageSrc="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80"
+            altText="Developer workspace"
+            captionText=""
+            containerHeight="100%"
+            containerWidth="100%"
+            imageHeight="100%"
+            imageWidth="100%"
+            scaleOnHover={1.02}
+            rotateAmplitude={3}
+            showTooltip={false}
+            showMobileWarning={false}
+            displayOverlayContent={false}
+          />
+        </div>
+        <div className="entry-background-overlay" />
+      </div>
       
       {/* Navigation */}
       <CardNav
@@ -64,12 +87,11 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
         onNavigate={handleNavigate}
       />
       
-      {/* Main Content */}
+      {/* Main Content - Centered Introduction */}
       <div className="entry-main-content">
-        {/* Left: Introduction Section */}
         <div className="intro-section">
           <span className="intro-greeting">Welcome, I am</span>
-          <h1 className="intro-name">Shivam Yadav</h1>
+          <h1 className="intro-name">Vaibhav Singh Kushwaha</h1>
           
           <div className="intro-title-wrapper">
             <TextType
@@ -99,35 +121,12 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
             </button>
             <button 
               className="intro-cta-button intro-cta-button--secondary"
-              onClick={onEnterPortfolio}
+              onClick={handleDownloadCV}
             >
-              Explore
-              <ArrowRight size={18} />
+              <Download size={18} />
+              Download CV
             </button>
           </div>
-        </div>
-        
-        {/* Right: Card Section */}
-        <div className="card-section">
-          <TiltedCard
-            imageSrc="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&q=80"
-            altText="Developer workspace"
-            captionText="Shivam Yadav"
-            containerHeight="350px"
-            containerWidth="100%"
-            imageHeight="350px"
-            imageWidth="300px"
-            scaleOnHover={1.08}
-            rotateAmplitude={12}
-            showTooltip={true}
-            displayOverlayContent={true}
-            overlayContent={
-              <div className="flex flex-col gap-2">
-                <span className="text-sm font-display text-primary">Developer</span>
-                <span className="text-lg font-display text-foreground">Creating Digital Art</span>
-              </div>
-            }
-          />
         </div>
       </div>
     </div>

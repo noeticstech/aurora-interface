@@ -10,15 +10,43 @@
 .entry-background {
   position: absolute;
   inset: 0;
+}
+
+.entry-background-card {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.entry-background-card .tilted-card-figure {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.entry-background-card .tilted-card-inner {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.entry-background-card .tilted-card-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+.entry-background-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   background: linear-gradient(
     135deg,
-    hsl(var(--background)) 0%,
-    hsl(var(--card)) 50%,
-    hsl(var(--background)) 100%
+    hsl(var(--background) / 0.85) 0%,
+    hsl(var(--background) / 0.7) 50%,
+    hsl(var(--background) / 0.85) 100%
   );
 }
 
-.entry-background::before {
+.entry-background-overlay::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -29,7 +57,7 @@
   );
 }
 
-.entry-background::after {
+.entry-background-overlay::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -44,26 +72,27 @@
   position: relative;
   z-index: 10;
   flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 8rem 4rem 4rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
-  align-items: center;
 }
 
 .intro-section {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
+  padding: 3rem;
   background: hsl(var(--accent) / 0.3);
   border: 1px solid hsl(var(--border));
   border-radius: 1rem;
   backdrop-filter: blur(10px);
-  min-height: 400px;
+  max-width: 650px;
+  text-align: center;
+  align-items: center;
 }
 
 .intro-greeting {
@@ -76,7 +105,7 @@
 
 .intro-name {
   font-family: 'Cinzel', serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
   color: hsl(var(--foreground));
   line-height: 1.1;
@@ -103,7 +132,7 @@
 .intro-cta {
   display: flex;
   gap: 1rem;
-  margin-top: auto;
+  margin-top: 1rem;
 }
 
 .intro-cta-button {
@@ -143,31 +172,13 @@
   color: hsl(var(--primary));
 }
 
-.card-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background: hsl(var(--destructive) / 0.1);
-  border: 1px solid hsl(var(--border));
-  border-radius: 1rem;
-  min-height: 400px;
-}
-
 @media (max-width: 1024px) {
   .entry-main-content {
-    grid-template-columns: 1fr;
     padding: 7rem 2rem 2rem;
-    gap: 2rem;
   }
   
   .intro-section {
-    min-height: auto;
-    padding: 1.5rem;
-  }
-  
-  .card-section {
-    min-height: 350px;
+    padding: 2rem;
   }
 }
 
@@ -176,8 +187,13 @@
     padding: 6rem 1rem 1.5rem;
   }
   
+  .intro-section {
+    padding: 1.5rem;
+  }
+  
   .intro-cta {
     flex-direction: column;
+    width: 100%;
   }
   
   .intro-cta-button {

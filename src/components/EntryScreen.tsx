@@ -87,8 +87,9 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
         onNavigate={handleNavigate}
       />
       
-      {/* Main Content - Centered Introduction */}
+      {/* Main Content - Two Column Layout */}
       <div className="entry-main-content">
+        {/* Left Side - Introduction */}
         <div className="intro-section">
           <span className="intro-greeting">Welcome, I am</span>
           <h1 className="intro-name">Vaibhav Singh Kushwaha</h1>
@@ -127,6 +128,24 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
               Download CV
             </button>
           </div>
+        </div>
+        
+        {/* Right Side - Floating Card */}
+        <div className="floating-card-section">
+          <TiltedCard
+            imageSrc="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80"
+            altText="Developer workspace"
+            captionText="Creative Developer"
+            containerHeight="400px"
+            containerWidth="350px"
+            imageHeight="400px"
+            imageWidth="350px"
+            scaleOnHover={1.05}
+            rotateAmplitude={12}
+            showTooltip={true}
+            showMobileWarning={false}
+            displayOverlayContent={false}
+          />
         </div>
       </div>
     </div>

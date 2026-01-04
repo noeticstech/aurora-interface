@@ -74,25 +74,25 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 8rem 4rem 4rem;
+  justify-content: space-between;
+  padding: 8rem 6rem 4rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
+  gap: 4rem;
 }
 
 .intro-section {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  padding: 3rem;
-  background: hsl(var(--accent) / 0.3);
-  border: 1px solid hsl(var(--border));
-  border-radius: 1rem;
-  backdrop-filter: blur(10px);
-  max-width: 650px;
-  text-align: center;
-  align-items: center;
+  gap: 1.5rem;
+  max-width: 550px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.floating-card-section {
+  flex-shrink: 0;
 }
 
 .intro-greeting {
@@ -174,21 +174,25 @@
 
 @media (max-width: 1024px) {
   .entry-main-content {
+    flex-direction: column;
     padding: 7rem 2rem 2rem;
+    text-align: center;
   }
   
   .intro-section {
-    padding: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .floating-card-section {
+    order: -1;
   }
 }
 
 @media (max-width: 640px) {
   .entry-main-content {
     padding: 6rem 1rem 1.5rem;
-  }
-  
-  .intro-section {
-    padding: 1.5rem;
+    gap: 2rem;
   }
   
   .intro-cta {

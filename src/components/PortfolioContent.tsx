@@ -4,6 +4,7 @@ import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, S
 import Aurora from './Aurora';
 import CertificateCarousel from './CertificateCarousel';
 import ScrollVelocity from './ScrollVelocity';
+import ScrollReveal from './ScrollReveal';
 import MagicBento from './MagicBento';
 import Dock from './Dock';
 import ClickSpark from './ClickSpark';
@@ -52,7 +53,7 @@ const PortfolioContent = () => {
 
       <div ref={scrollRef} className="relative z-10 max-w-7xl mx-auto px-8 py-16 h-full overflow-y-auto">
         
-        <header className="mb-24 pt-8">
+        <header className="mb-40 pt-8">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-display text-foreground mb-2">
@@ -82,7 +83,7 @@ const PortfolioContent = () => {
           </AnimatedContent>
         </header>
 
-        <section className="mb-32">
+        <section className="mb-48">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
             <span>Selected Works</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -99,7 +100,29 @@ const PortfolioContent = () => {
           />
         </section>
 
-        <section className="mb-32">
+        {/* Blog Section */}
+        <section className="mb-48">
+          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
+            <span>Blog</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
+          </h3>
+          
+          <div className="max-w-4xl">
+            <ScrollReveal
+              scrollContainerRef={scrollRef}
+              enableBlur={true}
+              baseOpacity={0.1}
+              baseRotation={3}
+              blurStrength={4}
+              rotationEnd="bottom bottom"
+              wordAnimationEnd="bottom bottom"
+            >
+              I write about the intersection of technology and creativity. From deep dives into system architecture to explorations of design philosophy, my blog captures the journey of building in the digital frontier. Every post is a reflection on craft, precision, and the art of elegant solutions.
+            </ScrollReveal>
+          </div>
+        </section>
+
+        <section className="mb-48">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
             <span>Certifications</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -116,7 +139,7 @@ const PortfolioContent = () => {
           </div>
         </section>
 
-        <section className="mb-32">
+        <section className="mb-48">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
             <span>Arsenal</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -134,7 +157,7 @@ const PortfolioContent = () => {
           </div>
         </section>
 
-        <section className="mb-32">
+        <section className="mb-48">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
             <span>Code</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -147,7 +170,7 @@ const PortfolioContent = () => {
           </div>
         </section>
 
-        <section className="mb-16">
+        <section className="mb-24">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-12 flex items-center gap-4">
             <span>Contact</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />

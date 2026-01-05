@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
-import CertificateCarousel from './CertificateCarousel';
+import CertificationShowcase from './CertificationShowcase';
 import ScrollVelocity from './ScrollVelocity';
 import ScrollReveal from './ScrollReveal';
 import MagicBento from './MagicBento';
@@ -190,20 +190,7 @@ const PortfolioContent = () => {
 
         {/* Certifications - Full Screen */}
         <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
-          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
-            <span>Certifications</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </h3>
-          
-          <div className="flex justify-center">
-            <CertificateCarousel 
-              baseWidth={320}
-              autoplay={true}
-              autoplayDelay={4000}
-              pauseOnHover={true}
-              loop={true}
-            />
-          </div>
+          <CertificationShowcase />
         </section>
 
         {/* Code Section - Full Screen */}

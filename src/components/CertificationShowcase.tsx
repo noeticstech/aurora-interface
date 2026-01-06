@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Award } from 'lucide-react';
-import CircularGallery from './CircularGallery';
+import CircularGallery, { CircularGalleryRef } from './CircularGallery';
 import CertificationCard from './CertificationCard';
 
 interface Certification {
@@ -80,9 +80,27 @@ const CERTIFICATIONS: Certification[] = [
 
 export default function CertificationShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const galleryRef = useRef<CircularGalleryRef>(null);
 
   const handleItemChange = useCallback((index: number) => {
     setActiveIndex(index);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    const newIndex = (activeIndex - 1 + CERTIFICATIONS.length) % CERTIFICATIONS.length;
+    setActiveIndex(newIndex);
+    galleryRef.current?.scrollToIndex(newIndex);
+  }, [activeIndex]);
+
+  const handleNext = useCallback(() => {
+    const newIndex = (activeIndex + 1) % CERTIFICATIONS.length;
+    setActiveIndex(newIndex);
+    galleryRef.current?.scrollToIndex(newIndex);
+  }, [activeIndex]);
+
+  const handleDotClick = useCallback((index: number) => {
+    setActiveIndex(index);
+    galleryRef.current?.scrollToIndex(index);
   }, []);
 
   const galleryItems = CERTIFICATIONS.map(cert => ({
@@ -140,7 +158,7 @@ export default function CertificationShowcase() {
           className="flex items-center gap-4 mb-8"
         >
           <button 
-            onClick={() => setActiveIndex((prev) => (prev - 1 + CERTIFICATIONS.length) % CERTIFICATIONS.length)}
+            onClick={handlePrev}
             className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -150,7 +168,7 @@ export default function CertificationShowcase() {
             {CERTIFICATIONS.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setActiveIndex(index)}
+                onClick={() => handleDotClick(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === activeIndex 
                     ? 'w-8 bg-gold' 
@@ -161,7 +179,7 @@ export default function CertificationShowcase() {
           </div>
           
           <button 
-            onClick={() => setActiveIndex((prev) => (prev + 1) % CERTIFICATIONS.length)}
+            onClick={handleNext}
             className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
           >
             <ChevronRight className="w-5 h-5" />
@@ -184,6 +202,7 @@ export default function CertificationShowcase() {
       {/* Circular Gallery */}
       <div className="absolute inset-0 z-0" style={{ height: '100vh' }}>
         <CircularGallery
+          ref={galleryRef}
           items={galleryItems}
           bend={2}
           textColor="#D4AF37"

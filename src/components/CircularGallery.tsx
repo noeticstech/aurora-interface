@@ -1,10 +1,14 @@
 // @ts-nocheck
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 
 interface GalleryItem {
   image: string;
   text: string;
+}
+
+export interface CircularGalleryRef {
+  scrollToIndex: (index: number) => void;
 }
 
 interface CircularGalleryProps {
@@ -381,6 +385,12 @@ class App {
       });
     });
   }
+  scrollToIndex(index) {
+    if (!this.medias || !this.medias[0]) return;
+    const width = this.medias[0].width;
+    this.scroll.target = width * index;
+    this.currentIndex = index;
+  }
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
@@ -409,9 +419,11 @@ class App {
     this.scroll.target = this.scroll.target < 0 ? -item : item;
     
     const newIndex = itemIndex % this.itemsCount;
-    if (newIndex !== this.currentIndex && this.onItemChange) {
+    if (newIndex !== this.currentIndex) {
       this.currentIndex = newIndex;
-      this.onItemChange(newIndex);
+      if (this.onItemChange) {
+        this.onItemChange(newIndex);
+      }
     }
   }
   onResize() {
@@ -474,7 +486,7 @@ class App {
   }
 }
 
-export default function CircularGallery({
+const CircularGallery = forwardRef<CircularGalleryRef, CircularGalleryProps>(({
   items,
   bend = 3,
   textColor = '#ffffff',
@@ -483,16 +495,32 @@ export default function CircularGallery({
   scrollSpeed = 2,
   scrollEase = 0.05,
   onItemChange
-}: CircularGalleryProps) {
+}, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const appRef = useRef<App | null>(null);
+  
+  useImperativeHandle(ref, () => ({
+    scrollToIndex: (index: number) => {
+      if (appRef.current) {
+        appRef.current.scrollToIndex(index);
+      }
+    }
+  }));
   
   useEffect(() => {
     if (!containerRef.current) return;
-    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, onItemChange });
+    appRef.current = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, onItemChange });
     return () => {
-      app.destroy();
+      if (appRef.current) {
+        appRef.current.destroy();
+        appRef.current = null;
+      }
     };
   }, [items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase, onItemChange]);
   
   return <div ref={containerRef} className="circular-gallery w-full h-full" />;
-}
+});
+
+CircularGallery.displayName = 'CircularGallery';
+
+export default CircularGallery;

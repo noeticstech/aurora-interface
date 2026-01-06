@@ -387,10 +387,27 @@ class App {
   }
   scrollToIndex(index) {
     if (!this.medias || !this.medias[0]) return;
+
     const width = this.medias[0].width;
-    this.scroll.target = width * index;
-    this.currentIndex = index;
+
+    // Move to the nearest occurrence of this index from current position to avoid jumps
+    // caused by the duplicated (looped) media list.
+    const base = Math.round(this.scroll.target / width);
+    const currentIndex = ((base % this.itemsCount) + this.itemsCount) % this.itemsCount;
+
+    let delta = index - currentIndex;
+    if (delta > this.itemsCount / 2) delta -= this.itemsCount;
+    if (delta < -this.itemsCount / 2) delta += this.itemsCount;
+
+    const nextBase = base + delta;
+    this.scroll.target = nextBase * width;
+
+    if (index !== this.currentIndex) {
+      this.currentIndex = index;
+      this.onItemChange?.(index);
+    }
   }
+
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
@@ -413,19 +430,19 @@ class App {
   }
   onCheck() {
     if (!this.medias || !this.medias[0]) return;
+
     const width = this.medias[0].width;
-    const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
-    const item = width * itemIndex;
-    this.scroll.target = this.scroll.target < 0 ? -item : item;
-    
-    const newIndex = itemIndex % this.itemsCount;
+    const base = Math.round(this.scroll.target / width);
+
+    this.scroll.target = base * width;
+
+    const newIndex = ((base % this.itemsCount) + this.itemsCount) % this.itemsCount;
     if (newIndex !== this.currentIndex) {
       this.currentIndex = newIndex;
-      if (this.onItemChange) {
-        this.onItemChange(newIndex);
-      }
+      this.onItemChange?.(newIndex);
     }
   }
+
   onResize() {
     this.screen = {
       width: this.container.clientWidth,

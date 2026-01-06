@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback, useRef, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Award } from 'lucide-react';
 import CircularGallery, { CircularGalleryRef } from './CircularGallery';
 import CertificationCard from './CertificationCard';
@@ -82,6 +82,15 @@ export default function CertificationShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const galleryRef = useRef<CircularGalleryRef>(null);
 
+  const galleryItems = useMemo(
+    () =>
+      CERTIFICATIONS.map((cert) => ({
+        image: cert.image,
+        text: cert.title
+      })),
+    []
+  );
+
   const handleItemChange = useCallback((index: number) => {
     setActiveIndex(index);
   }, []);
@@ -103,10 +112,7 @@ export default function CertificationShowcase() {
     galleryRef.current?.scrollToIndex(index);
   }, []);
 
-  const galleryItems = CERTIFICATIONS.map(cert => ({
-    image: cert.image,
-    text: cert.title
-  }));
+  const activeCert = CERTIFICATIONS[activeIndex];
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
@@ -114,7 +120,7 @@ export default function CertificationShowcase() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(45_93%_58%_/_0.03),_transparent_50%)]" />
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
-      
+
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -126,10 +132,12 @@ export default function CertificationShowcase() {
           <Award className="w-4 h-4 text-gold" />
           <span className="text-sm font-medium text-muted-foreground">Professional Certifications</span>
         </div>
+
         <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
           <span className="text-foreground">My </span>
           <span className="gold-text">Credentials</span>
         </h1>
+
         <p className="text-muted-foreground text-lg max-w-xl mx-auto">
           Scroll or drag to explore my professional certifications and achievements
         </p>
@@ -138,17 +146,18 @@ export default function CertificationShowcase() {
       {/* Main content area */}
       <div className="relative z-10 flex flex-col items-center justify-center">
         {/* Center card */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative z-30 mb-8"
-        >
-          <CertificationCard
-            certification={CERTIFICATIONS[activeIndex]}
-            isActive={true}
-          />
-        </motion.div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeCert.id}
+            initial={{ opacity: 0, scale: 0.92, y: 18 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: -18 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-30 mb-8"
+          >
+            <CertificationCard certification={activeCert} />
+          </motion.div>
+        </AnimatePresence>
 
         {/* Navigation indicators */}
         <motion.div
@@ -157,30 +166,34 @@ export default function CertificationShowcase() {
           transition={{ delay: 0.4 }}
           className="flex items-center gap-4 mb-8"
         >
-          <button 
+          <button
             onClick={handlePrev}
             className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
+            aria-label="Previous certification"
+            type="button"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          
-          <div className="flex gap-2">
+
+          <div className="flex gap-2" aria-label="Certification navigation">
             {CERTIFICATIONS.map((_, index) => (
               <button
                 key={index}
                 onClick={() => handleDotClick(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === activeIndex 
-                    ? 'w-8 bg-gold' 
-                    : 'bg-muted hover:bg-muted-foreground'
+                  index === activeIndex ? 'w-8 bg-gold' : 'bg-muted hover:bg-muted-foreground'
                 }`}
+                aria-label={`Go to certification ${index + 1}`}
+                type="button"
               />
             ))}
           </div>
-          
-          <button 
+
+          <button
             onClick={handleNext}
             className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
+            aria-label="Next certification"
+            type="button"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -192,10 +205,15 @@ export default function CertificationShowcase() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="text-center mb-4"
+          aria-label="Certification counter"
         >
-          <span className="font-display text-5xl font-bold gold-text">{String(activeIndex + 1).padStart(2, '0')}</span>
+          <span className="font-display text-5xl font-bold gold-text">
+            {String(activeIndex + 1).padStart(2, '0')}
+          </span>
           <span className="text-muted-foreground text-2xl font-light mx-2">/</span>
-          <span className="text-muted-foreground text-2xl font-light">{String(CERTIFICATIONS.length).padStart(2, '0')}</span>
+          <span className="text-muted-foreground text-2xl font-light">
+            {String(CERTIFICATIONS.length).padStart(2, '0')}
+          </span>
         </motion.div>
       </div>
 
@@ -217,7 +235,7 @@ export default function CertificationShowcase() {
       {/* Gradient overlays for better readability */}
       <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
-      
+
       {/* Side gradients */}
       <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />

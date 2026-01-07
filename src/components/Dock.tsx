@@ -58,9 +58,10 @@ function DockItem({
       role="button"
       aria-haspopup="true"
     >
-      {Children.map(children, (child) =>
-        cloneElement(child as ReactElement<{ isHovered?: ReturnType<typeof useMotionValue<number>> }>, { isHovered })
-      )}
+      {Children.map(children, (child) => {
+        if (!child || typeof child.type === 'string') return child;
+        return cloneElement(child as ReactElement<{ isHovered?: ReturnType<typeof useMotionValue<number>> }>, { isHovered });
+      })}
     </motion.div>
   );
 }

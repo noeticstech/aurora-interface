@@ -1,11 +1,8 @@
-'use client';
-
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
-import { Children, cloneElement, useEffect, useRef, useState, ReactElement, ReactNode, forwardRef } from 'react';
-import './Dock.css';
+import { Children, cloneElement, useRef, useState, useEffect, ReactElement, ReactNode, forwardRef } from 'react';
 
 interface DockItemProps {
-  children: ReactNode;
+  children: ReactElement | ReactElement[];
   className?: string;
   onClick?: () => void;
   mouseX: ReturnType<typeof useMotionValue<number>>;
@@ -15,19 +12,33 @@ interface DockItemProps {
   baseItemSize: number;
 }
 
-function DockItem({ children, className = '', onClick, mouseX, spring, distance, magnification, baseItemSize }: DockItemProps) {
+function DockItem({
+  children,
+  className = '',
+  onClick,
+  mouseX,
+  spring,
+  distance,
+  magnification,
+  baseItemSize,
+}: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isHovered = useMotionValue(0);
 
-  const mouseDistance = useTransform(mouseX, val => {
+  const mouseDistance = useTransform(mouseX, (val) => {
     const rect = ref.current?.getBoundingClientRect() ?? {
       x: 0,
-      width: baseItemSize
+      width: baseItemSize,
     };
     return val - rect.x - baseItemSize / 2;
   });
 
-  const targetSize = useTransform(mouseDistance, [-distance, 0, distance], [baseItemSize, magnification, baseItemSize]);
+  const targetSize = useTransform(
+    mouseDistance,
+    [-distance, 0, distance],
+    [baseItemSize, magnification, baseItemSize]
+  );
+
   const size = useSpring(targetSize, spring);
 
   return (
@@ -35,7 +46,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       ref={ref}
       style={{
         width: size,
-        height: size
+        height: size,
       }}
       onHoverStart={() => isHovered.set(1)}
       onHoverEnd={() => isHovered.set(0)}
@@ -47,7 +58,7 @@ function DockItem({ children, className = '', onClick, mouseX, spring, distance,
       role="button"
       aria-haspopup="true"
     >
-      {Children.map(children, child => 
+      {Children.map(children, (child) =>
         cloneElement(child as ReactElement<{ isHovered?: ReturnType<typeof useMotionValue<number>> }>, { isHovered })
       )}
     </motion.div>
@@ -99,7 +110,7 @@ function DockIcon({ children, className = '' }: DockIconProps) {
   return <div className={`dock-icon ${className}`}>{children}</div>;
 }
 
-interface DockItemData {
+export interface DockItemData {
   icon: ReactNode;
   label: string;
   onClick?: () => void;
@@ -118,7 +129,7 @@ interface DockProps {
 const Dock = forwardRef<HTMLDivElement, DockProps>(({
   items,
   className = '',
-  spring = { mass: 0.1, stiffness: 150, damping: 12 },
+  spring = { mass: 0.1, stiffness: 170, damping: 26 },
   magnification = 70,
   distance = 200,
   baseItemSize = 50
@@ -127,9 +138,9 @@ const Dock = forwardRef<HTMLDivElement, DockProps>(({
 
   return (
     <div className="dock-outer" ref={ref}>
-      <div
-        onMouseMove={(e) => {
-          mouseX.set(e.pageX);
+      <motion.div
+        onMouseMove={({ pageX }) => {
+          mouseX.set(pageX);
         }}
         onMouseLeave={() => {
           mouseX.set(Infinity);
@@ -153,7 +164,7 @@ const Dock = forwardRef<HTMLDivElement, DockProps>(({
             <DockLabel>{item.label}</DockLabel>
           </DockItem>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 });

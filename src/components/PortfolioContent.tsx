@@ -1,13 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { Moon, Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { Moon } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
 import CertificationShowcase from './CertificationShowcase';
 import ScrollVelocity from './ScrollVelocity';
 import ScrollReveal from './ScrollReveal';
 import MagicBento from './MagicBento';
-import Dock from './Dock';
-import ClickSpark from './ClickSpark';
+import ContactSection from './ContactSection';
 import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -209,56 +208,7 @@ const PortfolioContent = () => {
 
         {/* Contact Section - Full Screen */}
         <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
-          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
-            <span>Contact</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </h3>
-          
-          <ClickSpark
-            sparkColor="rgba(132, 0, 255, 1)"
-            sparkSize={12}
-            sparkRadius={25}
-            sparkCount={10}
-            duration={500}
-          >
-            <div className="flex flex-col items-center gap-8 py-12">
-              <Dock
-                items={[
-                  {
-                    icon: <Twitter className="w-6 h-6" strokeWidth={1.5} />,
-                    label: "X / Twitter",
-                    onClick: () => window.open('https://x.com/noeticstech', '_blank')
-                  },
-                  {
-                    icon: <Linkedin className="w-6 h-6" strokeWidth={1.5} />,
-                    label: "LinkedIn",
-                    onClick: () => window.open('https://www.linkedin.com/in/vaibhav-singh-kushwaha-1941813a1/', '_blank')
-                  },
-                  {
-                    icon: <Github className="w-6 h-6" strokeWidth={1.5} />,
-                    label: "GitHub",
-                    onClick: () => window.open('https://github.com/noeticstech', '_blank')
-                  },
-                  {
-                    icon: <Mail className="w-6 h-6" strokeWidth={1.5} />,
-                    label: "Email",
-                    onClick: () => window.location.href = 'mailto:realvaibhav2005@gmail.com'
-                  }
-                ]}
-                magnification={70}
-                distance={150}
-                baseItemSize={50}
-              />
-              
-              <p className="text-muted-foreground text-center max-w-md text-lg">
-                Ready to forge something extraordinary? Reach out through any channel.
-              </p>
-              
-              <p className="text-sm text-muted-foreground/60 tracking-wider">
-                realvaibhav2005@gmail.com
-              </p>
-            </div>
-          </ClickSpark>
+          <ContactSection />
         </section>
 
       </div>

@@ -167,7 +167,7 @@ const PortfolioContent = () => {
 
         {/* Blog Section - Full Screen */}
         <section ref={addToRefs} className="min-h-screen py-24">
-          <BlogSection />
+          <BlogSection scrollContainerRef={scrollRef} />
         </section>
 
         {/* Certifications - Full Screen */}

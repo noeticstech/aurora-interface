@@ -50,14 +50,10 @@ const ScrollReveal = ({
     const el = containerRef.current;
     if (!el) return;
 
-    const scroller =
-      scrollContainerRef && scrollContainerRef.current
-        ? scrollContainerRef.current
-        : undefined;
-
+    const scroller = scrollContainerRef?.current;
     const scrollerConfig = scroller ? { scroller } : {};
 
-    gsap.fromTo(
+    const rotateTween = gsap.fromTo(
       el,
       { transformOrigin: '0% 50%', rotate: baseRotation },
       {
@@ -74,7 +70,8 @@ const ScrollReveal = ({
     );
 
     const wordElements = el.querySelectorAll('.word');
-    gsap.fromTo(
+
+    const opacityTween = gsap.fromTo(
       wordElements,
       { opacity: baseOpacity, willChange: 'opacity' },
       {
@@ -91,29 +88,42 @@ const ScrollReveal = ({
       }
     );
 
-    if (enableBlur) {
-      gsap.fromTo(
-        wordElements,
-        { filter: `blur(${blurStrength}px)` },
-        {
-          ease: 'none',
-          filter: 'blur(0px)',
-          stagger: 0.05,
-          scrollTrigger: {
-            trigger: el,
-            ...scrollerConfig,
-            start: 'top bottom-=20%',
-            end: wordAnimationEnd,
-            scrub: true
+    const blurTween = enableBlur
+      ? gsap.fromTo(
+          wordElements,
+          { filter: `blur(${blurStrength}px)` },
+          {
+            ease: 'none',
+            filter: 'blur(0px)',
+            stagger: 0.05,
+            scrollTrigger: {
+              trigger: el,
+              ...scrollerConfig,
+              start: 'top bottom-=20%',
+              end: wordAnimationEnd,
+              scrub: true
+            }
           }
-        }
-      );
-    }
+        )
+      : null;
 
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      [rotateTween, opacityTween, blurTween].forEach((tween) => {
+        if (!tween) return;
+        // @ts-expect-error gsap tween may have scrollTrigger
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      });
     };
   }, [
+    scrollContainerRef,
+    enableBlur,
+    baseRotation,
+    baseOpacity,
+    rotationEnd,
+    wordAnimationEnd,
+    blurStrength
+  ]);
     scrollContainerRef,
     enableBlur,
     baseRotation,

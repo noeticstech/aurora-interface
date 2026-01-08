@@ -223,20 +223,20 @@ const BlogSection = () => {
       className="relative min-h-screen py-24 overflow-hidden"
     >
       {/* Animated background glow */}
-      <div className="glow-bg absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-[hsl(var(--blog-accent)/0.08)] blur-[120px] pointer-events-none" />
+      <div className="glow-bg absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full bg-primary/5 blur-[120px] pointer-events-none" />
 
       {/* Decorative floating elements */}
-      <div className="absolute top-20 right-20 w-2 h-2 rounded-full bg-[hsl(var(--blog-accent)/0.6)] animate-pulse" />
-      <div className="absolute bottom-40 left-16 w-3 h-3 rounded-full bg-[hsl(var(--blog-accent-secondary)/0.4)] animate-pulse" style={{ animationDelay: '1s' }} />
-      <div className="absolute top-1/2 right-32 w-1.5 h-1.5 rounded-full bg-[hsl(var(--blog-accent)/0.5)] animate-pulse" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-20 right-20 w-2 h-2 rounded-full bg-primary/60 animate-pulse" />
+      <div className="absolute bottom-40 left-16 w-3 h-3 rounded-full bg-accent/40 animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 right-32 w-1.5 h-1.5 rounded-full bg-primary/50 animate-pulse" style={{ animationDelay: '2s' }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header Section */}
         <div className="mb-16">
           {/* Eyebrow */}
           <div ref={eyebrowRef} className="flex items-center gap-4 mb-8">
-            <div className="eyebrow-line w-8 h-px bg-[hsl(var(--blog-accent))]" />
-            <span className="eyebrow-text text-sm font-medium tracking-widest uppercase text-[hsl(var(--blog-accent))]">
+            <div className="eyebrow-line w-8 h-px bg-primary" />
+            <span className="eyebrow-text text-sm font-medium tracking-widest uppercase text-primary">
               Journal
             </span>
           </div>
@@ -273,7 +273,7 @@ const BlogSection = () => {
                 className={`
                   px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
                   ${activeCategory === category 
-                    ? 'bg-[hsl(var(--blog-accent))] text-[hsl(var(--blog-background))] shadow-[0_0_20px_hsl(var(--blog-accent)/0.4)]' 
+                    ? 'bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--primary)/0.4)]' 
                     : 'bg-secondary text-secondary-foreground hover:bg-muted hover:scale-105'
                   }
                 `}

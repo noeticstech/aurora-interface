@@ -32,7 +32,7 @@ const ScrollReveal = ({
   wordAnimationEnd = 'bottom bottom',
   as = 'h2'
 }: ScrollRevealProps) => {
-  const containerRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const splitText = useMemo(() => {
     const text = typeof children === 'string' ? children : '';
@@ -53,7 +53,9 @@ const ScrollReveal = ({
     const scroller =
       scrollContainerRef && scrollContainerRef.current
         ? scrollContainerRef.current
-        : window;
+        : undefined;
+
+    const scrollerConfig = scroller ? { scroller } : {};
 
     gsap.fromTo(
       el,
@@ -63,7 +65,7 @@ const ScrollReveal = ({
         rotate: 0,
         scrollTrigger: {
           trigger: el,
-          scroller,
+          ...scrollerConfig,
           start: 'top bottom',
           end: rotationEnd,
           scrub: true
@@ -81,7 +83,7 @@ const ScrollReveal = ({
         stagger: 0.05,
         scrollTrigger: {
           trigger: el,
-          scroller,
+          ...scrollerConfig,
           start: 'top bottom-=20%',
           end: wordAnimationEnd,
           scrub: true
@@ -99,7 +101,7 @@ const ScrollReveal = ({
           stagger: 0.05,
           scrollTrigger: {
             trigger: el,
-            scroller,
+            ...scrollerConfig,
             start: 'top bottom-=20%',
             end: wordAnimationEnd,
             scrub: true
@@ -124,9 +126,9 @@ const ScrollReveal = ({
   const Tag = as;
 
   return (
-    <Tag ref={containerRef as React.RefObject<any>} className={`scroll-reveal ${containerClassName}`}>
-      <p className={`scroll-reveal-text ${textClassName}`}>{splitText}</p>
-    </Tag>
+    <div ref={containerRef} className={`scroll-reveal ${containerClassName}`}>
+      <Tag className={`scroll-reveal-text ${textClassName}`}>{splitText}</Tag>
+    </div>
   );
 };
 

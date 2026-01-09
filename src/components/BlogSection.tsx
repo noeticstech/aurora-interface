@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Masonry from '@/components/ui/Masonry';
+import ScrollReveal from '@/components/ui/ScrollReveal';
 
 import blogDesign from '@/assets/blog-design.jpg';
 import blogCode from '@/assets/blog-code.jpg';
@@ -88,9 +89,16 @@ const blogPosts: BlogPost[] = [
 
 const categories = ['All', 'Design', 'Development', 'Inspiration', 'Lifestyle', 'Creative'];
 
-const BlogSection = () => {
+interface BlogSectionProps {
+  scrollContainerRef?: React.RefObject<HTMLElement>;
+}
+
+const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLDivElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const filtersRef = useRef<HTMLDivElement>(null);
+  const masonryContainerRef = useRef<HTMLDivElement>(null);
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filteredPosts = activeCategory === 'All' 
@@ -99,67 +107,179 @@ const BlogSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Simple header animation on scroll
-      if (headerRef.current) {
+      const scroller = scrollContainerRef?.current || window;
+
+      // Eyebrow line animation
+      if (eyebrowRef.current) {
         gsap.fromTo(
-          headerRef.current,
-          { opacity: 0, y: 40 },
+          eyebrowRef.current.querySelector('.eyebrow-line'),
+          { scaleX: 0, transformOrigin: 'left center' },
+          {
+            scaleX: 1,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: eyebrowRef.current,
+              scroller,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+        
+        gsap.fromTo(
+          eyebrowRef.current.querySelector('.eyebrow-text'),
+          { opacity: 0, x: -20 },
           {
             opacity: 1,
-            y: 0,
+            x: 0,
             duration: 0.8,
-            ease: 'power2.out',
+            delay: 0.3,
+            ease: 'power3.out',
             scrollTrigger: {
-              trigger: headerRef.current,
-              start: 'top 85%',
-              once: true
+              trigger: eyebrowRef.current,
+              scroller,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse'
             }
           }
         );
       }
+
+      // Subtitle parallax and fade
+      if (subtitleRef.current) {
+        gsap.fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: subtitleRef.current,
+              scroller,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+
+      // Category filters staggered animation
+      if (filtersRef.current) {
+        gsap.fromTo(
+          filtersRef.current.querySelectorAll('button'),
+          { opacity: 0, y: 20, scale: 0.9 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.5,
+            stagger: 0.08,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: filtersRef.current,
+              scroller,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse'
+            }
+          }
+        );
+      }
+
+      // Masonry container parallax effect
+      if (masonryContainerRef.current) {
+        gsap.fromTo(
+          masonryContainerRef.current,
+          { y: 60 },
+          {
+            y: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: masonryContainerRef.current,
+              scroller,
+              start: 'top bottom',
+              end: 'top center',
+              scrub: 1
+            }
+          }
+        );
+      }
+
+      // Background glow parallax
+      const glowElement = sectionRef.current?.querySelector('.glow-bg');
+      if (glowElement) {
+        gsap.to(glowElement, {
+          y: -100,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            scroller,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [scrollContainerRef]);
 
   return (
     <section ref={sectionRef} className="relative py-24 overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[hsl(var(--blog-accent)/0.03)] blur-[120px] pointer-events-none" />
+      {/* Animated background glow */}
+      <div className="glow-bg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[hsl(var(--blog-accent)/0.05)] blur-[150px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
+      {/* Decorative floating elements */}
+      <div className="absolute top-20 right-20 w-2 h-2 rounded-full bg-[hsl(var(--blog-accent))] opacity-40 animate-pulse" />
+      <div className="absolute bottom-40 left-16 w-1.5 h-1.5 rounded-full bg-[hsl(var(--blog-accent-secondary))] opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/3 left-1/4 w-1 h-1 rounded-full bg-[hsl(var(--blog-foreground))] opacity-20 animate-pulse" style={{ animationDelay: '2s' }} />
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header Section */}
-        <div ref={headerRef} className="mb-16 space-y-6">
+        <div className="mb-16 space-y-8">
           {/* Eyebrow */}
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-px bg-[hsl(var(--blog-accent))]" />
-            <span className="text-xs tracking-[0.3em] uppercase text-[hsl(var(--blog-accent))] font-semibold">
+          <div ref={eyebrowRef} className="flex items-center gap-4">
+            <div className="eyebrow-line w-12 h-px bg-[hsl(var(--blog-accent))]" />
+            <span className="eyebrow-text text-xs tracking-[0.3em] uppercase text-[hsl(var(--blog-accent))] font-semibold">
               Journal
             </span>
           </div>
 
-          {/* Main Title */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--blog-foreground))] leading-tight max-w-3xl">
-            Thoughts on Design, Code & Creativity
-          </h2>
+          {/* Main Title with Scroll Reveal */}
+          <div className="max-w-3xl">
+            <ScrollReveal
+              scrollContainerRef={scrollContainerRef}
+              enableBlur={true}
+              baseOpacity={0.15}
+              baseRotation={2}
+              blurStrength={6}
+              rotationEnd="center center"
+              wordAnimationEnd="center center"
+            >
+              Thoughts on Design, Code & Creativity
+            </ScrollReveal>
+          </div>
 
           {/* Subtitle */}
-          <p className="max-w-xl text-[hsl(var(--blog-muted))] text-lg leading-relaxed">
+          <p ref={subtitleRef} className="max-w-xl text-[hsl(var(--blog-muted))] text-lg leading-relaxed">
             Exploring the intersection of aesthetics and functionality. 
             Ideas that shape the digital landscape.
           </p>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-3 pt-4">
+          <div ref={filtersRef} className="flex flex-wrap gap-3 pt-4">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 className={`
-                  px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-200
+                  px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
                   ${activeCategory === category 
-                    ? 'bg-[hsl(var(--blog-accent))] text-[hsl(var(--blog-background))]' 
-                    : 'bg-secondary text-secondary-foreground hover:bg-muted'
+                    ? 'bg-[hsl(var(--blog-accent))] text-[hsl(var(--blog-background))] shadow-[0_0_20px_hsl(var(--blog-accent)/0.4)]' 
+                    : 'bg-secondary text-secondary-foreground hover:bg-muted hover:scale-105'
                   }
                 `}
               >
@@ -170,7 +290,9 @@ const BlogSection = () => {
         </div>
 
         {/* Masonry Grid */}
-        <Masonry items={filteredPosts} />
+        <div ref={masonryContainerRef}>
+          <Masonry items={filteredPosts} />
+        </div>
       </div>
     </section>
   );

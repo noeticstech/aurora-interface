@@ -59,6 +59,13 @@
     --sidebar-accent-foreground: 60 9% 98%;
     --sidebar-border: 240 5% 18%;
     --sidebar-ring: 45 93% 58%;
+
+    /* Blog Section Colors */
+    --blog-background: 20 14% 4%;
+    --blog-foreground: 60 9% 98%;
+    --blog-accent: 25 95% 53%;
+    --blog-accent-secondary: 35 100% 50%;
+    --blog-muted: 20 5% 60%;
   }
 
   .dark {

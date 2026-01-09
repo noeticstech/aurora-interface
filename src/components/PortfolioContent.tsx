@@ -4,9 +4,9 @@ import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, S
 import Aurora from './Aurora';
 import CertificationShowcase from './CertificationShowcase';
 import ScrollVelocity from './ScrollVelocity';
-import ScrollReveal from './ScrollReveal';
 import MagicBento from './MagicBento';
 import ContactSection from './ContactSection';
+import BlogSection from './BlogSection';
 import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -166,25 +166,8 @@ const PortfolioContent = () => {
         </section>
 
         {/* Blog Section - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
-          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
-            <span>Blog</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </h3>
-          
-          <div className="max-w-4xl">
-            <ScrollReveal
-              scrollContainerRef={scrollRef}
-              enableBlur={true}
-              baseOpacity={0.1}
-              baseRotation={3}
-              blurStrength={4}
-              rotationEnd="bottom bottom"
-              wordAnimationEnd="bottom bottom"
-            >
-              I write about the intersection of technology and creativity. From deep dives into system architecture to explorations of design philosophy, my blog captures the journey of building in the digital frontier. Every post is a reflection on craft, precision, and the art of elegant solutions.
-            </ScrollReveal>
-          </div>
+        <section ref={addToRefs} className="py-24">
+          <BlogSection scrollContainerRef={scrollRef} />
         </section>
 
         {/* Certifications - Full Screen */}

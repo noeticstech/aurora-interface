@@ -167,7 +167,7 @@ const PortfolioContent = () => {
 
         {/* Blog Section - Full Screen */}
         <section ref={addToRefs} className="py-24">
-          <BlogSection scrollContainerRef={scrollRef} />
+          <BlogSection />
         </section>
 
         {/* Certifications - Full Screen */}

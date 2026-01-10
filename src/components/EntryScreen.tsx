@@ -3,6 +3,7 @@ import TextType from './TextType';
 import TiltedCard from './TiltedCard';
 import { Download, Eye } from 'lucide-react';
 import './EntryScreen.css';
+import heroBackgroundVideo from '@/assets/hero-background.mp4';
 
 interface EntryScreenProps {
   onEnterPortfolio: () => void;
@@ -59,24 +60,16 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
 
   return (
     <div className="entry-screen">
-      {/* Background with TiltedCard */}
+      {/* Video Background */}
       <div className="entry-background">
-        <div className="entry-background-card">
-          <TiltedCard
-            imageSrc="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1920&q=80"
-            altText="Developer workspace"
-            captionText=""
-            containerHeight="100%"
-            containerWidth="100%"
-            imageHeight="100%"
-            imageWidth="100%"
-            scaleOnHover={1.02}
-            rotateAmplitude={3}
-            showTooltip={false}
-            showMobileWarning={false}
-            displayOverlayContent={false}
-          />
-        </div>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="entry-background-video"
+          src={heroBackgroundVideo}
+        />
         <div className="entry-background-overlay" />
       </div>
       

@@ -82,7 +82,7 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
       
       {/* Navigation */}
       <CardNav
-        logoText="RONIN"
+        logoText="𝙽𝚘𝚎𝚝𝚒𝚌𝚜𝚃𝚎𝚌𝚑"
         items={navItems}
         onNavigate={handleNavigate}
       />

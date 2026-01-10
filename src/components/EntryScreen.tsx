@@ -4,6 +4,8 @@ import TiltedCard from './TiltedCard';
 import { Download, Eye } from 'lucide-react';
 import './EntryScreen.css';
 import heroBackgroundVideo from '@/assets/hero-background.mp4';
+import cardBackgroundVideo from '@/assets/card-background.mp4';
+import characterFace from '@/assets/character-face.png';
 
 interface EntryScreenProps {
   onEnterPortfolio: () => void;
@@ -126,13 +128,14 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
         {/* Right Side - Floating Card */}
         <div className="floating-card-section">
           <TiltedCard
-            imageSrc="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=800&q=80"
-            altText="Developer workspace"
+            videoSrc={cardBackgroundVideo}
+            characterSrc={characterFace}
+            altText="Developer character"
             captionText="Creative Developer"
-            containerHeight="400px"
-            containerWidth="350px"
-            imageHeight="400px"
-            imageWidth="350px"
+            containerHeight="450px"
+            containerWidth="320px"
+            imageHeight="450px"
+            imageWidth="320px"
             scaleOnHover={1.05}
             rotateAmplitude={12}
             showTooltip={true}

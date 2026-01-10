@@ -9,7 +9,9 @@ const springValues = {
 };
 
 interface TiltedCardProps {
-  imageSrc: string;
+  imageSrc?: string;
+  videoSrc?: string;
+  characterSrc?: string;
   altText?: string;
   captionText?: string;
   containerHeight?: string;
@@ -26,6 +28,8 @@ interface TiltedCardProps {
 
 export default function TiltedCard({
   imageSrc,
+  videoSrc,
+  characterSrc,
   altText = 'Tilted card image',
   captionText = '',
   containerHeight = '300px',
@@ -52,6 +56,11 @@ export default function TiltedCard({
     mass: 1
   });
 
+  // Character 3D effect - more dramatic movement
+  const characterX = useSpring(0, { stiffness: 150, damping: 20 });
+  const characterY = useSpring(0, { stiffness: 150, damping: 20 });
+  const characterScale = useSpring(1, { stiffness: 200, damping: 25 });
+
   const [lastY, setLastY] = useState(0);
 
   function handleMouse(e: React.MouseEvent<HTMLElement>) {
@@ -68,11 +77,20 @@ export default function TiltedCard({
     const velocityY = offsetY - lastY;
     rotateFigcaption.set(-velocityY * 0.6);
     setLastY(offsetY);
+
+    // Character parallax effect - moves opposite to create depth
+    if (characterSrc) {
+      characterX.set(offsetX * 0.05);
+      characterY.set(offsetY * 0.03);
+    }
   }
 
   function handleMouseEnter() {
     scale.set(scaleOnHover);
     opacity.set(1);
+    if (characterSrc) {
+      characterScale.set(1.08);
+    }
   }
 
   function handleMouseLeave() {
@@ -81,6 +99,11 @@ export default function TiltedCard({
     rotateX.set(0);
     rotateY.set(0);
     rotateFigcaption.set(0);
+    if (characterSrc) {
+      characterX.set(0);
+      characterY.set(0);
+      characterScale.set(1);
+    }
   }
 
   return (
@@ -108,15 +131,46 @@ export default function TiltedCard({
           scale
         }}
       >
-        <motion.img
-          src={imageSrc}
-          alt={altText}
-          className="tilted-card-img"
-          style={{
-            width: imageWidth,
-            height: imageHeight
-          }}
-        />
+        {/* Video Background */}
+        {videoSrc && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="tilted-card-video"
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        )}
+        
+        {/* Static Image Background (fallback) */}
+        {imageSrc && !videoSrc && (
+          <motion.img
+            src={imageSrc}
+            alt={altText}
+            className="tilted-card-img"
+            style={{
+              width: imageWidth,
+              height: imageHeight
+            }}
+          />
+        )}
+
+        {/* Character Overlay with 3D Effect */}
+        {characterSrc && (
+          <motion.img
+            src={characterSrc}
+            alt="Character"
+            className="tilted-card-character"
+            style={{
+              x: characterX,
+              y: characterY,
+              scale: characterScale
+            }}
+          />
+        )}
+
         {displayOverlayContent && overlayContent && (
           <motion.div className="tilted-card-overlay">{overlayContent}</motion.div>
         )}

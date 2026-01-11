@@ -83,9 +83,9 @@ const PortfolioContent = () => {
   };
 
   return (
-    <div className="relative z-10 opacity-0 animate-fade-in min-h-screen">
+    <div className="absolute inset-0 z-10 opacity-0 animate-fade-in">
       {/* Aurora Background Layer */}
-      <div className="fixed inset-0 opacity-20 pointer-events-none">
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
         <Aurora 
           colorStops={['#3d3d5c', '#52525b', '#3d3d5c']}
           amplitude={0.6}
@@ -95,9 +95,9 @@ const PortfolioContent = () => {
       </div>
 
       {/* Dark overlay to maintain mood */}
-      <div className="fixed inset-0 bg-background/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-background/40 pointer-events-none" />
 
-      <div ref={scrollRef} className="relative z-10 max-w-7xl mx-auto px-8 py-16">
+      <div ref={scrollRef} className="relative z-10 max-w-7xl mx-auto px-8 py-16 h-full overflow-y-auto scroll-smooth">
         
         {/* Introduction Header - Full Screen with Video Background */}
         <header className="min-h-screen flex flex-col justify-center pb-32 pt-8 relative">

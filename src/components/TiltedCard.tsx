@@ -165,7 +165,8 @@ export default function TiltedCard({
               position: 'absolute',
               bottom: 0,
               left: '50%',
-              height: '90%',
+              height: '100%',
+              width: '100%',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-end',
@@ -184,6 +185,7 @@ export default function TiltedCard({
                 height: '100%',
                 width: 'auto',
                 objectFit: 'contain',
+                objectPosition: 'center bottom',
                 filter: 'drop-shadow(0 10px 30px hsl(var(--primary) / 0.4))'
               }}
             />

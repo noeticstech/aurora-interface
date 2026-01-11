@@ -7,7 +7,7 @@ const Index = () => {
   const [showPortfolio, setShowPortfolio] = useState(false);
 
   return (
-    <div className="relative w-full min-h-screen bg-background overflow-hidden">
+    <div className="relative w-full min-h-screen bg-background overflow-x-hidden overflow-y-auto">
       {/* Fluid cursor effect */}
       <SplashCursor />
 

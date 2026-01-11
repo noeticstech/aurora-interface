@@ -10,6 +10,7 @@ import BlogSection from './BlogSection';
 import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import nameBackgroundVideo from '@/assets/name-background.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -98,9 +99,26 @@ const PortfolioContent = () => {
 
       <div ref={scrollRef} className="relative z-10 max-w-7xl mx-auto px-8 py-16 h-full overflow-y-auto scroll-smooth">
         
-        {/* Introduction Header - Full Screen */}
-        <header className="min-h-screen flex flex-col justify-center pb-32 pt-8">
-          <div className="flex items-center justify-between mb-12">
+        {/* Introduction Header - Full Screen with Video Background */}
+        <header className="min-h-screen flex flex-col justify-center pb-32 pt-8 relative">
+          {/* Video Background */}
+          <div className="absolute inset-0 -mx-8 overflow-hidden rounded-3xl">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
+            >
+              <source src={nameBackgroundVideo} type="video/mp4" />
+            </video>
+            {/* Gradient overlays for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+          </div>
+
+          <div className="relative z-10 flex items-center justify-between mb-12">
             <div>
               <h2 className="text-2xl font-display text-foreground mb-2">
                 VAIBHAV SINGH KUSHWAHA
@@ -121,7 +139,7 @@ const PortfolioContent = () => {
             delay={0.8}
             ease="power2.out"
           >
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+            <p className="relative z-10 text-muted-foreground text-lg leading-relaxed max-w-xl">
               Crafting digital experiences at the intersection of design and technology. 
               I transform complex problems into elegant, minimal solutions.
             </p>

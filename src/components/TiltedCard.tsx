@@ -159,16 +159,35 @@ export default function TiltedCard({
 
         {/* Character Overlay with 3D Effect */}
         {characterSrc && (
-          <motion.img
-            src={characterSrc}
-            alt="Character"
-            className="tilted-card-character"
+          <motion.div
+            className="tilted-card-character-wrapper"
             style={{
+              position: 'absolute',
+              bottom: 0,
+              left: '50%',
+              height: '90%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'flex-end',
+              zIndex: 2,
+              pointerEvents: 'none',
               x: characterX,
               y: characterY,
-              scale: characterScale
+              scale: characterScale,
+              translateX: '-50%'
             }}
-          />
+          >
+            <img
+              src={characterSrc}
+              alt="Character"
+              style={{
+                height: '100%',
+                width: 'auto',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 10px 30px hsl(var(--primary) / 0.4))'
+              }}
+            />
+          </motion.div>
         )}
 
         {displayOverlayContent && overlayContent && (

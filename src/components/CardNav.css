@@ -35,6 +35,99 @@
   z-index: 2;
 }
 
+/* Music Player Styles */
+.music-player-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+}
+
+.music-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.1));
+  border: 1px solid hsl(var(--primary) / 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.music-toggle-btn:hover {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.5), hsl(var(--primary) / 0.2));
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+}
+
+.music-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-icon {
+  width: 18px;
+  height: 18px;
+  color: hsl(var(--primary));
+}
+
+.volume-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 36px;
+  background: hsl(var(--card) / 0.9);
+  border-radius: 18px;
+  border: 1px solid hsl(var(--border) / 0.5);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.volume-icon {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--primary));
+  flex-shrink: 0;
+}
+
+.volume-slider {
+  width: 60px;
+  height: 4px;
+  border-radius: 2px;
+  background: hsl(var(--muted));
+  appearance: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+  transition: transform 0.2s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: hsl(var(--primary));
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.5);
+}
+
 .hamburger-menu {
   height: 100%;
   display: flex;

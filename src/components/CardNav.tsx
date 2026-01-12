@@ -1,7 +1,6 @@
-import { useLayoutEffect, useRef, useState, useEffect } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { ArrowUpRight, Play, Pause, Volume2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import './CardNav.css';
 
 interface NavLink {
@@ -39,46 +38,9 @@ const CardNav = ({
 }: CardNavProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
-  const [volume, setVolume] = useState(50);
   const navRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    audioRef.current = new Audio('https://www.soundjay.com/ambient/sounds/rain-03.mp3');
-    audioRef.current.loop = true;
-    audioRef.current.volume = volume / 100;
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume / 100;
-    }
-  }, [volume]);
-
-  const togglePlay = async () => {
-    if (!audioRef.current) return;
-    try {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        await audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    } catch (error) {
-      console.log('Audio playback failed:', error);
-    }
-  };
 
   const calculateHeight = () => {
     const navEl = navRef.current;
@@ -186,67 +148,6 @@ const CardNav = ({
     <div className={`card-nav-container ${className}`}>
       <nav ref={navRef} className={`card-nav ${isExpanded ? 'open' : ''}`}>
         <div className="card-nav-top">
-          {/* Music Player Button */}
-          <div 
-            className="music-player-nav"
-            onMouseEnter={() => setShowVolumeSlider(true)}
-            onMouseLeave={() => setShowVolumeSlider(false)}
-          >
-            <motion.button
-              className="music-toggle-btn"
-              onClick={togglePlay}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label={isPlaying ? 'Pause music' : 'Play music'}
-            >
-              <AnimatePresence mode="wait">
-                {isPlaying ? (
-                  <motion.div
-                    key="pause"
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    exit={{ scale: 0, rotate: 180 }}
-                    className="music-icon-wrapper"
-                  >
-                    <Pause className="music-icon" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="play"
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    exit={{ scale: 0, rotate: 180 }}
-                    className="music-icon-wrapper"
-                  >
-                    <Play className="music-icon" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-            
-            <AnimatePresence>
-              {showVolumeSlider && (
-                <motion.div
-                  className="volume-slider-container"
-                  initial={{ opacity: 0, x: -10, width: 0 }}
-                  animate={{ opacity: 1, x: 0, width: 100 }}
-                  exit={{ opacity: 0, x: -10, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Volume2 className="volume-icon" />
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={volume}
-                    onChange={(e) => setVolume(Number(e.target.value))}
-                    className="volume-slider"
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
           <div
             className={`hamburger-menu ${isHamburgerOpen ? 'open' : ''}`}
             onClick={toggleMenu}

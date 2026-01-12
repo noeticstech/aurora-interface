@@ -85,8 +85,20 @@
   letter-spacing: 0.1em;
 }
 
-.card-nav-cta-button {
-  background-color: hsl(var(--primary));
+/* Header Music Player Styles */
+.header-music-player {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  position: relative;
+}
+
+.music-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
   color: hsl(var(--primary-foreground));
   border: none;
   border-radius: calc(0.75rem - 0.35rem);
@@ -95,13 +107,74 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  align-items: center;
   font-family: 'Cinzel', serif;
+  min-width: 120px;
+  box-shadow: 0 4px 15px hsl(var(--primary) / 0.3);
 }
 
-.card-nav-cta-button:hover {
-  background-color: hsl(var(--accent));
-  transform: scale(1.02);
+.music-toggle-btn:hover {
+  box-shadow: 0 6px 20px hsl(var(--primary) / 0.5);
+}
+
+.music-btn-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.music-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.music-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.volume-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.volume-toggle-btn:hover {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
+
+.volume-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.volume-slider-popup {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 10px 40px hsl(var(--primary) / 0.3);
+  z-index: 100;
+  min-width: 200px;
+}
+
+.volume-slider-popup .slider-container {
+  width: 100%;
+}
+
+.volume-slider-popup .value-indicator {
+  color: hsl(var(--primary));
 }
 
 .card-nav-content {

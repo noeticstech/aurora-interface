@@ -1,5 +1,5 @@
 import { animate, motion, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState, ReactNode } from 'react';
+import { useEffect, useRef, useState, ReactNode, useMemo } from 'react';
 import { RiVolumeDownFill, RiVolumeUpFill } from 'react-icons/ri';
 import './ElasticSlider.css';
 
@@ -121,6 +121,15 @@ function Slider({ defaultValue, startingValue, maxValue, isStepped, stepSize, le
     return ((value - startingValue) / totalRange) * 100;
   };
 
+  // Pre-compute transforms to avoid recreating during render
+  const leftIconX = useTransform(overflow, (o) => (region === 'left' ? -o / scale.get() : 0));
+  const rightIconX = useTransform(overflow, (o) => (region === 'right' ? o / scale.get() : 0));
+  const wrapperOpacity = useTransform(scale, [1, 1.2], [0.7, 1]);
+  const trackScaleY = useTransform(overflow, [0, MAX_OVERFLOW], [1, 0.8]);
+  const trackHeight = useTransform(scale, [1, 1.2], [6, 12]);
+  const trackMarginTop = useTransform(scale, [1, 1.2], [0, -3]);
+  const trackMarginBottom = useTransform(scale, [1, 1.2], [0, -3]);
+
   return (
     <>
       <motion.div
@@ -130,15 +139,11 @@ function Slider({ defaultValue, startingValue, maxValue, isStepped, stepSize, le
         onTouchEnd={() => animate(scale, 1)}
         style={{
           scale,
-          opacity: useTransform(scale, [1, 1.2], [0.7, 1])
+          opacity: wrapperOpacity
         }}
         className="slider-wrapper"
       >
-        <motion.div
-          style={{
-            x: useTransform(() => (region === 'left' ? -overflow.get() / scale.get() : 0))
-          }}
-        >
+        <motion.div style={{ x: leftIconX }}>
           {leftIcon}
         </motion.div>
 
@@ -151,24 +156,10 @@ function Slider({ defaultValue, startingValue, maxValue, isStepped, stepSize, le
         >
           <motion.div
             style={{
-              scaleX: useTransform(() => {
-                if (sliderRef.current) {
-                  const { width } = sliderRef.current.getBoundingClientRect();
-                  return 1 + overflow.get() / width;
-                }
-                return 1;
-              }),
-              scaleY: useTransform(overflow, [0, MAX_OVERFLOW], [1, 0.8]),
-              transformOrigin: useTransform(() => {
-                if (sliderRef.current) {
-                  const { left, width } = sliderRef.current.getBoundingClientRect();
-                  return clientX.get() < left + width / 2 ? 'right' : 'left';
-                }
-                return 'center';
-              }),
-              height: useTransform(scale, [1, 1.2], [6, 12]),
-              marginTop: useTransform(scale, [1, 1.2], [0, -3]),
-              marginBottom: useTransform(scale, [1, 1.2], [0, -3])
+              scaleY: trackScaleY,
+              height: trackHeight,
+              marginTop: trackMarginTop,
+              marginBottom: trackMarginBottom
             }}
             className="slider-track-wrapper"
           >
@@ -181,11 +172,7 @@ function Slider({ defaultValue, startingValue, maxValue, isStepped, stepSize, le
           </motion.div>
         </div>
 
-        <motion.div
-          style={{
-            x: useTransform(() => (region === 'right' ? overflow.get() / scale.get() : 0))
-          }}
-        >
+        <motion.div style={{ x: rightIconX }}>
           {rightIcon}
         </motion.div>
       </motion.div>

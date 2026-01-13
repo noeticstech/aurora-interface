@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
+import ElasticSlider from './ElasticSlider';
 import './CardNav.css';
 
 interface NavLink {
@@ -38,9 +39,29 @@ const CardNav = ({
 }: CardNavProps) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [volume, setVolume] = useState(50);
   const navRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio('https://www.soundjay.com/ambient/sounds/rain-03.mp3');
+    audioRef.current.loop = true;
+    audioRef.current.volume = volume / 100;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
 
   const calculateHeight = () => {
     const navEl = navRef.current;
@@ -162,13 +183,14 @@ const CardNav = ({
           <div className="logo-container">
             <span className="logo-text">{logoText}</span>
           </div>
-          <button
-            type="button"
-            className="card-nav-cta-button"
-            onClick={() => onNavigate?.('#contact')}
-          >
-            Get Started
-          </button>
+          <div className="nav-volume-slider">
+            <ElasticSlider
+              defaultValue={volume}
+              onChange={setVolume}
+              maxValue={100}
+              startingValue={0}
+            />
+          </div>
         </div>
 
         <div className="card-nav-content" aria-hidden={!isExpanded}>

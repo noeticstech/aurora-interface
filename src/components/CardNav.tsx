@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
-import HeaderMusicPlayer from './HeaderMusicPlayer';
 import './CardNav.css';
 
 interface NavLink {
@@ -163,7 +162,13 @@ const CardNav = ({
           <div className="logo-container">
             <span className="logo-text">{logoText}</span>
           </div>
-          <HeaderMusicPlayer />
+          <button
+            type="button"
+            className="card-nav-cta-button"
+            onClick={() => onNavigate?.('#contact')}
+          >
+            Get Started
+          </button>
         </div>
 
         <div className="card-nav-content" aria-hidden={!isExpanded}>

@@ -85,6 +85,12 @@
   letter-spacing: 0.1em;
 }
 
+.nav-volume-slider {
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+
 .card-nav-cta-button {
   background-color: hsl(var(--primary));
   color: hsl(var(--primary-foreground));

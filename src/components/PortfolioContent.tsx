@@ -48,17 +48,27 @@ const PortfolioContent = () => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    // Handle scroll for cutout reveal
+    // Handle scroll for 3D cutout parallax
     const handleScroll = () => {
       const scrollTop = scrollContainer.scrollTop;
       const windowHeight = window.innerHeight;
-      // Progress from 0 to 1 over the first screen height
-      const progress = Math.min(1, Math.max(0, scrollTop / windowHeight));
-      setCutoutProgress(progress);
+      
+      // Start transition after 50% of first screen, complete by end of first screen
+      const startThreshold = windowHeight * 0.3;
+      const endThreshold = windowHeight * 1.2;
+      
+      if (scrollTop < startThreshold) {
+        setCutoutProgress(0);
+      } else if (scrollTop > endThreshold) {
+        setCutoutProgress(1);
+      } else {
+        const progress = (scrollTop - startThreshold) / (endThreshold - startThreshold);
+        setCutoutProgress(progress);
+      }
     };
 
     scrollContainer.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
 
     const sections = sectionsRef.current;
     
@@ -127,19 +137,30 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/70 pointer-events-none" />
 
-      {/* Cutout Overlay - reveals as you scroll */}
+      {/* 3D Cutout Overlay - rises from bottom with parallax depth */}
       <div 
         ref={cutoutRef}
-        className="fixed inset-0 pointer-events-none transition-opacity duration-100"
+        className="fixed inset-0 pointer-events-none overflow-hidden"
         style={{
-          opacity: cutoutProgress,
-          zIndex: 5
+          zIndex: 5,
+          perspective: '1000px',
+          perspectiveOrigin: 'center bottom'
         }}
       >
         <img 
           src={cutoutSamurai} 
           alt="" 
-          className="w-full h-full object-cover"
+          className="absolute bottom-0 left-0 w-full h-auto min-h-full object-cover object-bottom"
+          style={{
+            transform: `
+              translateY(${(1 - cutoutProgress) * 100}%) 
+              translateZ(${cutoutProgress * 50}px) 
+              scale(${1 + cutoutProgress * 0.1})
+            `,
+            opacity: cutoutProgress,
+            transformOrigin: 'center bottom',
+            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
+          }}
         />
       </div>
 

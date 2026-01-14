@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Moon } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
@@ -11,7 +11,6 @@ import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
-import cutoutSamurai from '@/assets/cutout-samurai.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,35 +40,8 @@ const skillsRow2 = [
 const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
-  const cutoutRef = useRef<HTMLDivElement>(null);
-  const [cutoutProgress, setCutoutProgress] = useState(0);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    // Handle scroll for 3D cutout parallax
-    const handleScroll = () => {
-      const scrollTop = scrollContainer.scrollTop;
-      const windowHeight = window.innerHeight;
-      
-      // Start transition after 50% of first screen, complete by end of first screen
-      const startThreshold = windowHeight * 0.3;
-      const endThreshold = windowHeight * 1.2;
-      
-      if (scrollTop < startThreshold) {
-        setCutoutProgress(0);
-      } else if (scrollTop > endThreshold) {
-        setCutoutProgress(1);
-      } else {
-        const progress = (scrollTop - startThreshold) / (endThreshold - startThreshold);
-        setCutoutProgress(progress);
-      }
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
-    handleScroll();
-
     const sections = sectionsRef.current;
     
     sections.forEach((section) => {
@@ -100,7 +72,6 @@ const PortfolioContent = () => {
     });
 
     return () => {
-      scrollContainer.removeEventListener('scroll', handleScroll);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -136,33 +107,6 @@ const PortfolioContent = () => {
 
       {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/70 pointer-events-none" />
-
-      {/* 3D Cutout Overlay - rises from bottom with parallax depth */}
-      <div 
-        ref={cutoutRef}
-        className="fixed inset-0 pointer-events-none overflow-hidden"
-        style={{
-          zIndex: 5,
-          perspective: '1000px',
-          perspectiveOrigin: 'center bottom'
-        }}
-      >
-        <img 
-          src={cutoutSamurai} 
-          alt="" 
-          className="absolute bottom-0 left-0 w-full h-auto min-h-full object-cover object-bottom"
-          style={{
-            transform: `
-              translateY(${(1 - cutoutProgress) * 100}%) 
-              translateZ(${cutoutProgress * 50}px) 
-              scale(${1 + cutoutProgress * 0.1})
-            `,
-            opacity: cutoutProgress,
-            transformOrigin: 'center bottom',
-            transition: 'transform 0.1s ease-out, opacity 0.1s ease-out'
-          }}
-        />
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         

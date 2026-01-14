@@ -10,7 +10,6 @@ import BlogSection from './BlogSection';
 import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import nameBackgroundVideo from '@/assets/name-background.mp4';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -111,24 +110,8 @@ const PortfolioContent = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         
-        {/* Introduction Header - Full Screen with Video Background */}
+        {/* Introduction Header - Full Screen */}
         <header className="min-h-screen flex flex-col justify-center pb-32 pt-8 relative">
-          {/* Video Background */}
-          <div className="absolute inset-0 -mx-8 overflow-hidden rounded-3xl">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-30"
-            >
-              <source src={nameBackgroundVideo} type="video/mp4" />
-            </video>
-            {/* Gradient overlays for better text readability */}
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/60" />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
-          </div>
 
           <div className="relative z-10 flex items-center justify-between mb-12">
             <div>

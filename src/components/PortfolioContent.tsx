@@ -11,6 +11,7 @@ import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import nameBackgroundVideo from '@/assets/name-background.mp4';
+import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,6 +85,17 @@ const PortfolioContent = () => {
 
   return (
     <div ref={scrollRef} className="absolute inset-0 z-10 opacity-0 animate-fade-in overflow-y-auto scroll-smooth">
+      {/* Fixed Mountain Background - stays static while content scrolls */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `url(${portfolioBgMountain})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
       {/* Aurora Background Layer */}
       <div className="fixed inset-0 opacity-20 pointer-events-none">
         <Aurora 
@@ -95,7 +107,7 @@ const PortfolioContent = () => {
       </div>
 
       {/* Dark overlay to maintain mood */}
-      <div className="fixed inset-0 bg-background/40 pointer-events-none" />
+      <div className="fixed inset-0 bg-background/70 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         

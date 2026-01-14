@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Moon } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
@@ -11,6 +11,7 @@ import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
+import cutoutSamurai from '@/assets/cutout-samurai.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,8 +41,25 @@ const skillsRow2 = [
 const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
+  const cutoutRef = useRef<HTMLDivElement>(null);
+  const [cutoutProgress, setCutoutProgress] = useState(0);
 
   useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    // Handle scroll for cutout reveal
+    const handleScroll = () => {
+      const scrollTop = scrollContainer.scrollTop;
+      const windowHeight = window.innerHeight;
+      // Progress from 0 to 1 over the first screen height
+      const progress = Math.min(1, Math.max(0, scrollTop / windowHeight));
+      setCutoutProgress(progress);
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+
     const sections = sectionsRef.current;
     
     sections.forEach((section) => {
@@ -72,6 +90,7 @@ const PortfolioContent = () => {
     });
 
     return () => {
+      scrollContainer.removeEventListener('scroll', handleScroll);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -107,6 +126,22 @@ const PortfolioContent = () => {
 
       {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/70 pointer-events-none" />
+
+      {/* Cutout Overlay - reveals as you scroll */}
+      <div 
+        ref={cutoutRef}
+        className="fixed inset-0 pointer-events-none transition-opacity duration-100"
+        style={{
+          opacity: cutoutProgress,
+          zIndex: 5
+        }}
+      >
+        <img 
+          src={cutoutSamurai} 
+          alt="" 
+          className="w-full h-full object-cover"
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         

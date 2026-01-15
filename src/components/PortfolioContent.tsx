@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Moon } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
@@ -11,6 +11,7 @@ import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
+import cutoutSection1 from '@/assets/cutout-section1.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,6 +41,9 @@ const skillsRow2 = [
 const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
+  const cutoutRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const [cutoutOpacity, setCutoutOpacity] = useState(1);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -70,6 +74,20 @@ const PortfolioContent = () => {
         }
       );
     });
+
+    // Cutout fade animation based on scroll
+    if (cutoutRef.current && headerRef.current) {
+      ScrollTrigger.create({
+        trigger: headerRef.current,
+        scroller: scrollRef.current,
+        start: 'bottom 80%',
+        end: 'bottom 20%',
+        scrub: true,
+        onUpdate: (self) => {
+          setCutoutOpacity(1 - self.progress);
+        }
+      });
+    }
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
@@ -108,10 +126,23 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/70 pointer-events-none" />
 
+      {/* Cutout overlay for section 1 - fades out on scroll */}
+      <div 
+        ref={cutoutRef}
+        className="fixed inset-0 pointer-events-none z-20 transition-opacity duration-300"
+        style={{
+          opacity: cutoutOpacity,
+          backgroundImage: `url(${cutoutSection1})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         
         {/* Introduction Header - Full Screen */}
-        <header className="min-h-screen flex flex-col justify-center pb-32 pt-8 relative">
+        <header ref={headerRef} className="min-h-screen flex flex-col justify-center pb-32 pt-8 relative">
 
           <div className="relative z-10 flex items-center justify-between mb-12">
             <div>

@@ -108,7 +108,7 @@ const PortfolioContent = () => {
         style={{
           backgroundImage: `url(${portfolioBgMountain})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundPosition: 'center bottom',
           backgroundRepeat: 'no-repeat'
         }}
       />
@@ -124,7 +124,7 @@ const PortfolioContent = () => {
       </div>
 
       {/* Dark overlay to maintain mood - reduced for brightness match */}
-      <div className="fixed inset-0 bg-background/40 pointer-events-none" />
+      <div className="fixed inset-0 bg-background/30 pointer-events-none" />
 
       {/* Cutout overlay for section 1 - fades out on scroll */}
       <div 

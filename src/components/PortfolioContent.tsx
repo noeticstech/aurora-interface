@@ -123,8 +123,8 @@ const PortfolioContent = () => {
         />
       </div>
 
-      {/* Dark overlay to maintain mood */}
-      <div className="fixed inset-0 bg-background/70 pointer-events-none" />
+      {/* Dark overlay to maintain mood - reduced for brightness match */}
+      <div className="fixed inset-0 bg-background/40 pointer-events-none" />
 
       {/* Cutout overlay for section 1 - fades out on scroll */}
       <div 

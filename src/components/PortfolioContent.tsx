@@ -12,6 +12,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 import cutoutSection1 from '@/assets/cutout-section1.png';
+import cutoutSection2 from '@/assets/cutout-section2.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,11 +42,13 @@ const skillsRow2 = [
 const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
-  const cutoutRef = useRef<HTMLDivElement>(null);
+  const cutout1Ref = useRef<HTMLDivElement>(null);
+  const cutout2Ref = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const worksRef = useRef<HTMLElement>(null);
-  const [cutoutVisible, setCutoutVisible] = useState(true);
-  const [cutoutY, setCutoutY] = useState(0);
+  const arsenalRef = useRef<HTMLElement>(null);
+  const [cutout1Y, setCutout1Y] = useState(0);
+  const [cutout2Y, setCutout2Y] = useState(0);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -77,8 +80,8 @@ const PortfolioContent = () => {
       );
     });
 
-    // Cutout parallax movement on scroll
-    if (cutoutRef.current && headerRef.current) {
+    // Cutout 1 parallax movement on scroll
+    if (cutout1Ref.current && headerRef.current) {
       ScrollTrigger.create({
         trigger: headerRef.current,
         scroller: scrollRef.current,
@@ -86,20 +89,71 @@ const PortfolioContent = () => {
         end: 'bottom top',
         scrub: 0.5,
         onUpdate: (self) => {
-          // Move cutout slightly upward as user scrolls (parallax effect)
-          setCutoutY(self.progress * -50);
+          setCutout1Y(self.progress * -50);
         }
       });
     }
 
-    // Sudden removal of cutout when reaching works section
-    if (worksRef.current) {
+    // Smooth crossfade transition between cutouts at works section
+    if (cutout1Ref.current && cutout2Ref.current && worksRef.current) {
+      // Fade out cutout 1
       ScrollTrigger.create({
         trigger: worksRef.current,
         scroller: scrollRef.current,
-        start: 'top 90%',
-        onEnter: () => setCutoutVisible(false),
-        onLeaveBack: () => setCutoutVisible(true)
+        start: 'top 100%',
+        end: 'top 60%',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          if (cutout1Ref.current) {
+            gsap.set(cutout1Ref.current, { opacity: 1 - self.progress });
+          }
+        }
+      });
+
+      // Fade in cutout 2
+      ScrollTrigger.create({
+        trigger: worksRef.current,
+        scroller: scrollRef.current,
+        start: 'top 100%',
+        end: 'top 60%',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          if (cutout2Ref.current) {
+            gsap.set(cutout2Ref.current, { opacity: self.progress });
+          }
+        }
+      });
+
+      // Cutout 2 parallax movement
+      ScrollTrigger.create({
+        trigger: worksRef.current,
+        scroller: scrollRef.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.5,
+        onUpdate: (self) => {
+          setCutout2Y(self.progress * -80);
+        }
+      });
+    }
+
+    // Fade out cutout 2 at arsenal section
+    if (cutout2Ref.current && arsenalRef.current) {
+      ScrollTrigger.create({
+        trigger: arsenalRef.current,
+        scroller: scrollRef.current,
+        start: 'top 100%',
+        end: 'top 60%',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          if (cutout2Ref.current) {
+            const baseOpacity = cutout2Ref.current.style.opacity ? parseFloat(cutout2Ref.current.style.opacity) : 1;
+            // Only fade out if cutout2 is visible
+            if (baseOpacity > 0) {
+              gsap.set(cutout2Ref.current, { opacity: Math.max(0, 1 - self.progress) });
+            }
+          }
+        }
       });
     }
 
@@ -140,20 +194,33 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood - reduced for brightness match */}
       <div className="fixed inset-0 bg-background/30 pointer-events-none" />
 
-      {/* Cutout overlay for section 1 - parallax movement, sudden removal */}
-      {cutoutVisible && (
-        <div 
-          ref={cutoutRef}
-          className="fixed inset-0 pointer-events-none z-20"
-          style={{
-            transform: `translateY(${cutoutY}px)`,
-            backgroundImage: `url(${cutoutSection1})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center bottom',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-      )}
+      {/* Cutout overlay for section 1 - smooth fade out */}
+      <div 
+        ref={cutout1Ref}
+        className="fixed inset-0 pointer-events-none z-20"
+        style={{
+          opacity: 1,
+          transform: `translateY(${cutout1Y}px)`,
+          backgroundImage: `url(${cutoutSection1})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
+
+      {/* Cutout overlay for section 2 (Selected Works) - smooth fade in */}
+      <div 
+        ref={cutout2Ref}
+        className="fixed inset-0 pointer-events-none z-20"
+        style={{
+          opacity: 0,
+          transform: `translateY(${cutout2Y}px)`,
+          backgroundImage: `url(${cutoutSection2})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         
@@ -207,7 +274,7 @@ const PortfolioContent = () => {
         </section>
 
         {/* Arsenal Section - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
+        <section ref={(el) => { addToRefs(el); arsenalRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
             <span>Arsenal</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />

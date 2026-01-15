@@ -43,7 +43,9 @@ const PortfolioContent = () => {
   const sectionsRef = useRef<HTMLElement[]>([]);
   const cutoutRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
-  const [cutoutOpacity, setCutoutOpacity] = useState(1);
+  const worksRef = useRef<HTMLElement>(null);
+  const [cutoutVisible, setCutoutVisible] = useState(true);
+  const [cutoutY, setCutoutY] = useState(0);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -75,17 +77,29 @@ const PortfolioContent = () => {
       );
     });
 
-    // Cutout fade animation based on scroll
+    // Cutout parallax movement on scroll
     if (cutoutRef.current && headerRef.current) {
       ScrollTrigger.create({
         trigger: headerRef.current,
         scroller: scrollRef.current,
-        start: 'bottom 80%',
-        end: 'bottom 20%',
-        scrub: true,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 0.5,
         onUpdate: (self) => {
-          setCutoutOpacity(1 - self.progress);
+          // Move cutout slightly upward as user scrolls (parallax effect)
+          setCutoutY(self.progress * -50);
         }
+      });
+    }
+
+    // Sudden removal of cutout when reaching works section
+    if (worksRef.current) {
+      ScrollTrigger.create({
+        trigger: worksRef.current,
+        scroller: scrollRef.current,
+        start: 'top 90%',
+        onEnter: () => setCutoutVisible(false),
+        onLeaveBack: () => setCutoutVisible(true)
       });
     }
 
@@ -126,18 +140,20 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood - reduced for brightness match */}
       <div className="fixed inset-0 bg-background/30 pointer-events-none" />
 
-      {/* Cutout overlay for section 1 - fades out on scroll */}
-      <div 
-        ref={cutoutRef}
-        className="fixed inset-0 pointer-events-none z-20 transition-opacity duration-300"
-        style={{
-          opacity: cutoutOpacity,
-          backgroundImage: `url(${cutoutSection1})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center bottom',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+      {/* Cutout overlay for section 1 - parallax movement, sudden removal */}
+      {cutoutVisible && (
+        <div 
+          ref={cutoutRef}
+          className="fixed inset-0 pointer-events-none z-20"
+          style={{
+            transform: `translateY(${cutoutY}px)`,
+            backgroundImage: `url(${cutoutSection1})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+      )}
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         
@@ -173,7 +189,7 @@ const PortfolioContent = () => {
         </header>
 
         {/* Selected Works - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
+        <section ref={(el) => { addToRefs(el); worksRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
             <span>Selected Works</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />

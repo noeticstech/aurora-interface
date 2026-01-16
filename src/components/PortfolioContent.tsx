@@ -12,6 +12,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 import cutoutWorks from '@/assets/cutout-works.png';
+import cutoutArsenal from '@/assets/cutout-arsenal.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,9 +43,11 @@ const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
   const worksCutoutRef = useRef<HTMLDivElement>(null);
+  const arsenalCutoutRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const worksRef = useRef<HTMLElement>(null);
   const arsenalRef = useRef<HTMLElement>(null);
+  const blogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -118,6 +121,48 @@ const PortfolioContent = () => {
       });
     }
 
+    // Arsenal cutout slides in from below when works cutout starts blurring
+    if (arsenalCutoutRef.current && arsenalRef.current) {
+      // Set initial position off-screen at bottom
+      gsap.set(arsenalCutoutRef.current, { yPercent: 100, opacity: 1 });
+
+      // Slide in from bottom (100% to 0%) as we approach arsenal section
+      ScrollTrigger.create({
+        trigger: arsenalRef.current,
+        scroller: scrollRef.current,
+        start: 'top 100%',
+        end: 'top 40%',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          if (arsenalCutoutRef.current) {
+            const yPos = (1 - self.progress) * 100;
+            gsap.set(arsenalCutoutRef.current, { yPercent: yPos });
+          }
+        }
+      });
+    }
+
+    // Blur out arsenal cutout when reaching Blog section
+    if (arsenalCutoutRef.current && blogRef.current) {
+      ScrollTrigger.create({
+        trigger: blogRef.current,
+        scroller: scrollRef.current,
+        start: 'top 100%',
+        end: 'top 50%',
+        scrub: 1,
+        onUpdate: (self) => {
+          if (arsenalCutoutRef.current) {
+            const blur = self.progress * 20;
+            const opacity = 1 - self.progress;
+            gsap.set(arsenalCutoutRef.current, { 
+              filter: `blur(${blur}px)`,
+              opacity: opacity
+            });
+          }
+        }
+      });
+    }
+
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -166,6 +211,22 @@ const PortfolioContent = () => {
             backgroundImage: `url(${cutoutWorks})`,
             backgroundSize: 'cover',
             backgroundPosition: 'right bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+      </div>
+
+      {/* Arsenal Cutout - slides in from below when entering Arsenal section */}
+      <div 
+        ref={arsenalCutoutRef}
+        className="fixed inset-0 pointer-events-none z-[5]"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${cutoutArsenal})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
             backgroundRepeat: 'no-repeat'
           }}
         />
@@ -242,7 +303,7 @@ const PortfolioContent = () => {
         </section>
 
         {/* Blog Section - Full Screen */}
-        <section ref={addToRefs} className="py-24">
+        <section ref={(el) => { addToRefs(el); blogRef.current = el; }} className="py-24">
           <BlogSection scrollContainerRef={scrollRef} />
         </section>
 

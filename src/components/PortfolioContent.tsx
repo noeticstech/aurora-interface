@@ -97,7 +97,7 @@ const PortfolioContent = () => {
       });
     }
 
-    // Slide cutout out to the right when reaching Arsenal section
+    // Blur out cutout when reaching Arsenal section
     if (worksCutoutRef.current && arsenalRef.current) {
       ScrollTrigger.create({
         trigger: arsenalRef.current,
@@ -107,9 +107,11 @@ const PortfolioContent = () => {
         scrub: 1,
         onUpdate: (self) => {
           if (worksCutoutRef.current) {
-            const xPos = self.progress * 100;
+            const blur = self.progress * 20;
+            const opacity = 1 - self.progress;
             gsap.set(worksCutoutRef.current, { 
-              xPercent: xPos
+              filter: `blur(${blur}px)`,
+              opacity: opacity
             });
           }
         }
@@ -153,10 +155,10 @@ const PortfolioContent = () => {
       {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/30 pointer-events-none" />
 
-      {/* Works Cutout - slides in from right for Selected Works section */}
+      {/* Works Cutout - behind Selected Works section, slides in from right */}
       <div 
         ref={worksCutoutRef}
-        className="fixed inset-0 pointer-events-none z-20"
+        className="fixed inset-0 pointer-events-none z-[5]"
       >
         <div
           className="absolute inset-0"

@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Moon } from 'lucide-react';
 import { SiReact, SiNodedotjs, SiTypescript, SiPython, SiThreedotjs, SiDocker, SiGit, SiTailwindcss } from 'react-icons/si';
 import Aurora from './Aurora';
@@ -11,8 +11,7 @@ import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
-import cutoutSection1 from '@/assets/cutout-section1.png';
-import cutoutSection2 from '@/assets/cutout-section2.png';
+import cutoutWorks from '@/assets/cutout-works.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,13 +41,10 @@ const skillsRow2 = [
 const PortfolioContent = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef<HTMLElement[]>([]);
-  const cutout1Ref = useRef<HTMLDivElement>(null);
-  const cutout2Ref = useRef<HTMLDivElement>(null);
+  const worksCutoutRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const worksRef = useRef<HTMLElement>(null);
   const arsenalRef = useRef<HTMLElement>(null);
-  const [cutout1Y, setCutout1Y] = useState(0);
-  const [cutout2Y, setCutout2Y] = useState(0);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -80,78 +76,41 @@ const PortfolioContent = () => {
       );
     });
 
-    // Cutout 1 parallax movement on scroll
-    if (cutout1Ref.current && headerRef.current) {
+    // Works cutout slides in from right as we scroll toward Selected Works
+    if (worksCutoutRef.current && worksRef.current) {
+      // Slide in from right (100% to 0%) as we approach works section
       ScrollTrigger.create({
-        trigger: headerRef.current,
+        trigger: worksRef.current,
         scroller: scrollRef.current,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 0.5,
+        start: 'top 120%',
+        end: 'top 50%',
+        scrub: 1,
         onUpdate: (self) => {
-          setCutout1Y(self.progress * -50);
+          if (worksCutoutRef.current) {
+            const xPos = (1 - self.progress) * 100;
+            gsap.set(worksCutoutRef.current, { 
+              xPercent: xPos,
+              opacity: 1
+            });
+          }
         }
       });
     }
 
-    // Smooth crossfade transition between cutouts at works section
-    if (cutout1Ref.current && cutout2Ref.current && worksRef.current) {
-      // Fade out cutout 1
-      ScrollTrigger.create({
-        trigger: worksRef.current,
-        scroller: scrollRef.current,
-        start: 'top 100%',
-        end: 'top 60%',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          if (cutout1Ref.current) {
-            gsap.set(cutout1Ref.current, { opacity: 1 - self.progress });
-          }
-        }
-      });
-
-      // Fade in cutout 2
-      ScrollTrigger.create({
-        trigger: worksRef.current,
-        scroller: scrollRef.current,
-        start: 'top 100%',
-        end: 'top 60%',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          if (cutout2Ref.current) {
-            gsap.set(cutout2Ref.current, { opacity: self.progress });
-          }
-        }
-      });
-
-      // Cutout 2 parallax movement
-      ScrollTrigger.create({
-        trigger: worksRef.current,
-        scroller: scrollRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.5,
-        onUpdate: (self) => {
-          setCutout2Y(self.progress * -80);
-        }
-      });
-    }
-
-    // Fade out cutout 2 at arsenal section
-    if (cutout2Ref.current && arsenalRef.current) {
+    // Slide cutout out to the right when reaching Arsenal section
+    if (worksCutoutRef.current && arsenalRef.current) {
       ScrollTrigger.create({
         trigger: arsenalRef.current,
         scroller: scrollRef.current,
         start: 'top 100%',
-        end: 'top 60%',
-        scrub: 0.8,
+        end: 'top 50%',
+        scrub: 1,
         onUpdate: (self) => {
-          if (cutout2Ref.current) {
-            const baseOpacity = cutout2Ref.current.style.opacity ? parseFloat(cutout2Ref.current.style.opacity) : 1;
-            // Only fade out if cutout2 is visible
-            if (baseOpacity > 0) {
-              gsap.set(cutout2Ref.current, { opacity: Math.max(0, 1 - self.progress) });
-            }
+          if (worksCutoutRef.current) {
+            const xPos = self.progress * 100;
+            gsap.set(worksCutoutRef.current, { 
+              xPercent: xPos
+            });
           }
         }
       });
@@ -191,36 +150,27 @@ const PortfolioContent = () => {
         />
       </div>
 
-      {/* Dark overlay to maintain mood - reduced for brightness match */}
+      {/* Dark overlay to maintain mood */}
       <div className="fixed inset-0 bg-background/30 pointer-events-none" />
 
-      {/* Cutout overlay for section 1 - smooth fade out */}
+      {/* Works Cutout - slides in from right for Selected Works section */}
       <div 
-        ref={cutout1Ref}
-        className="fixed inset-0 pointer-events-none z-20"
+        ref={worksCutoutRef}
+        className="fixed inset-0 pointer-events-none z-20 overflow-hidden"
         style={{
-          opacity: 1,
-          transform: `translateY(${cutout1Y}px)`,
-          backgroundImage: `url(${cutoutSection1})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center bottom',
-          backgroundRepeat: 'no-repeat'
+          transform: 'translateX(100%)',
         }}
-      />
-
-      {/* Cutout overlay for section 2 (Selected Works) - smooth fade in */}
-      <div 
-        ref={cutout2Ref}
-        className="fixed inset-0 pointer-events-none z-20"
-        style={{
-          opacity: 0,
-          transform: `translateY(${cutout2Y}px)`,
-          backgroundImage: `url(${cutoutSection2})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center bottom',
-          backgroundRepeat: 'no-repeat'
-        }}
-      />
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${cutoutWorks})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'right bottom',
+            backgroundRepeat: 'no-repeat'
+          }}
+        />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         

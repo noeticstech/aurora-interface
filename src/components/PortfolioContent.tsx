@@ -78,20 +78,20 @@ const PortfolioContent = () => {
 
     // Works cutout slides in from right as we scroll toward Selected Works
     if (worksCutoutRef.current && worksRef.current) {
+      // Set initial position off-screen to the right
+      gsap.set(worksCutoutRef.current, { xPercent: 100 });
+
       // Slide in from right (100% to 0%) as we approach works section
       ScrollTrigger.create({
         trigger: worksRef.current,
         scroller: scrollRef.current,
-        start: 'top 120%',
-        end: 'top 50%',
-        scrub: 1,
+        start: 'top 100%',
+        end: 'top 40%',
+        scrub: 0.8,
         onUpdate: (self) => {
           if (worksCutoutRef.current) {
             const xPos = (1 - self.progress) * 100;
-            gsap.set(worksCutoutRef.current, { 
-              xPercent: xPos,
-              opacity: 1
-            });
+            gsap.set(worksCutoutRef.current, { xPercent: xPos });
           }
         }
       });
@@ -156,10 +156,7 @@ const PortfolioContent = () => {
       {/* Works Cutout - slides in from right for Selected Works section */}
       <div 
         ref={worksCutoutRef}
-        className="fixed inset-0 pointer-events-none z-20 overflow-hidden"
-        style={{
-          transform: 'translateX(100%)',
-        }}
+        className="fixed inset-0 pointer-events-none z-20"
       >
         <div
           className="absolute inset-0"

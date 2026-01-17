@@ -228,7 +228,7 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
   }, [scrollContainerRef]);
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative py-8 overflow-hidden">
       {/* Animated background glow */}
       <div className="glow-bg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[hsl(var(--blog-accent)/0.05)] blur-[150px] pointer-events-none" />
 

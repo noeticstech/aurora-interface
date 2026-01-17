@@ -265,8 +265,8 @@ const PortfolioContent = () => {
           </AnimatedContent>
         </header>
 
-        {/* Selected Works - Full Screen */}
-        <section ref={(el) => { addToRefs(el); worksRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
+        {/* Selected Works */}
+        <section ref={(el) => { addToRefs(el); worksRef.current = el; }} className="flex flex-col py-16">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
             <span>Selected Works</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -279,7 +279,7 @@ const PortfolioContent = () => {
             enableStars={true}
             enableMagnetism={true}
             clickEffect={true}
-            glowColor="132, 0, 255"
+            glowColor="30, 65, 45"
           />
           
           {/* Skills flowing under works */}
@@ -295,18 +295,18 @@ const PortfolioContent = () => {
           </div>
         </section>
 
-        {/* Blog Section - Full Screen */}
-        <section ref={(el) => { addToRefs(el); blogRef.current = el; }} className="py-24">
+        {/* Blog Section */}
+        <section ref={(el) => { addToRefs(el); blogRef.current = el; }} className="py-12">
           <BlogSection scrollContainerRef={scrollRef} />
         </section>
 
-        {/* Certifications - Full Screen */}
-        <section ref={(el) => { addToRefs(el); certRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
+        {/* Certifications */}
+        <section ref={(el) => { addToRefs(el); certRef.current = el; }} className="flex flex-col py-16">
           <CertificationShowcase />
         </section>
 
-        {/* Code Section - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
+        {/* Code Section */}
+        <section ref={addToRefs} className="flex flex-col py-16">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
             <span>Code</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
@@ -319,8 +319,8 @@ const PortfolioContent = () => {
           </div>
         </section>
 
-        {/* Contact Section - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
+        {/* Contact Section */}
+        <section ref={addToRefs} className="flex flex-col py-16">
           <ContactSection />
         </section>
 

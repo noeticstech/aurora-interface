@@ -46,8 +46,8 @@ const PortfolioContent = () => {
   const arsenalCutoutRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const worksRef = useRef<HTMLElement>(null);
-  const arsenalRef = useRef<HTMLElement>(null);
   const blogRef = useRef<HTMLElement>(null);
+  const certRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -100,10 +100,10 @@ const PortfolioContent = () => {
       });
     }
 
-    // Blur out cutout when reaching Arsenal section
-    if (worksCutoutRef.current && arsenalRef.current) {
+    // Blur out works cutout when reaching Blog section
+    if (worksCutoutRef.current && blogRef.current) {
       ScrollTrigger.create({
-        trigger: arsenalRef.current,
+        trigger: blogRef.current,
         scroller: scrollRef.current,
         start: 'top 100%',
         end: 'top 50%',
@@ -121,14 +121,14 @@ const PortfolioContent = () => {
       });
     }
 
-    // Arsenal cutout slides in from below when works cutout starts blurring
-    if (arsenalCutoutRef.current && arsenalRef.current) {
+    // Arsenal (horse) cutout slides in from below when entering Blog section
+    if (arsenalCutoutRef.current && blogRef.current) {
       // Set initial position off-screen at bottom
       gsap.set(arsenalCutoutRef.current, { yPercent: 100, opacity: 1 });
 
-      // Slide in from bottom (100% to 0%) as we approach arsenal section
+      // Slide in from bottom (100% to 0%) as we approach blog section
       ScrollTrigger.create({
-        trigger: arsenalRef.current,
+        trigger: blogRef.current,
         scroller: scrollRef.current,
         start: 'top 100%',
         end: 'top 40%',
@@ -142,10 +142,10 @@ const PortfolioContent = () => {
       });
     }
 
-    // Blur out arsenal cutout when reaching Blog section
-    if (arsenalCutoutRef.current && blogRef.current) {
+    // Blur out arsenal cutout when reaching Certifications section
+    if (arsenalCutoutRef.current && certRef.current) {
       ScrollTrigger.create({
-        trigger: blogRef.current,
+        trigger: certRef.current,
         scroller: scrollRef.current,
         start: 'top 100%',
         end: 'top 50%',
@@ -281,16 +281,9 @@ const PortfolioContent = () => {
             clickEffect={true}
             glowColor="132, 0, 255"
           />
-        </section>
-
-        {/* Arsenal Section - Full Screen */}
-        <section ref={(el) => { addToRefs(el); arsenalRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
-          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
-            <span>Arsenal</span>
-            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
-          </h3>
           
-          <div className="relative overflow-hidden py-12">
+          {/* Skills flowing under works */}
+          <div className="relative overflow-hidden py-12 mt-16">
             <ScrollVelocity
               scrollContainerRef={scrollRef}
               rows={[skillsRow1, skillsRow2]}
@@ -308,7 +301,7 @@ const PortfolioContent = () => {
         </section>
 
         {/* Certifications - Full Screen */}
-        <section ref={addToRefs} className="min-h-screen flex flex-col justify-center py-24">
+        <section ref={(el) => { addToRefs(el); certRef.current = el; }} className="min-h-screen flex flex-col justify-center py-24">
           <CertificationShowcase />
         </section>
 

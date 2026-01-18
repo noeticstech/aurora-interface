@@ -14,8 +14,8 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  const fullText = "In Search Of Peace I Discover Programming";
-  const typingSpeed = 80;
+  const fullText = "𝓘𝓷 𝓢𝓮𝓪𝓻𝓬𝓱 𝓞𝓯 𝓟𝓮𝓪𝓬𝓮 𝓘 𝓓𝓲𝓼𝓬𝓸𝓿𝓮𝓻𝓮𝓭 𝓟𝓻𝓸𝓰𝓻𝓪𝓶𝓶𝓲𝓷𝓰";
+  const typingSpeed = 120;
   
   // Cursor blink animation
   useEffect(() => {
@@ -85,10 +85,11 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           className="intro-video"
-          src={introBackgroundVideo}
-        />
+        >
+          <source src={introBackgroundVideo} type="video/mp4" />
+        </video>
         <div className="intro-video-overlay" />
       </div>
       

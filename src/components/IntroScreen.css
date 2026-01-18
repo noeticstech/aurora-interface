@@ -55,14 +55,14 @@
 
 .intro-text {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  font-size: clamp(0.75rem, 2.5vw, 1.75rem);
   font-weight: 300;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   color: #fff;
   text-shadow: 
     0 0 20px rgba(255, 255, 255, 0.3),
     0 0 40px rgba(255, 255, 255, 0.1);
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .intro-text-content {
@@ -102,8 +102,8 @@
 /* Mobile Adjustments */
 @media (max-width: 768px) {
   .intro-text {
-    font-size: clamp(1.2rem, 6vw, 2rem);
-    letter-spacing: 0.05em;
+    font-size: clamp(0.6rem, 3vw, 1rem);
+    letter-spacing: 0.08em;
   }
   
   .intro-skip-hint {

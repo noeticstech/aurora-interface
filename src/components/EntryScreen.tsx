@@ -69,6 +69,7 @@ const EntryScreen = ({ onEnterPortfolio }: EntryScreenProps) => {
           muted
           loop
           playsInline
+          preload="auto"
           className="entry-background-video"
           src={heroBackgroundVideo}
         />

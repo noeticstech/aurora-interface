@@ -138,6 +138,7 @@ export default function TiltedCard({
             muted
             loop
             playsInline
+            preload="auto"
             className="tilted-card-video"
           >
             <source src={videoSrc} type="video/mp4" />

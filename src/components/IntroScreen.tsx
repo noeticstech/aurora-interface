@@ -14,8 +14,23 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  const fullText = "𝓘𝓷 𝓢𝓮𝓪𝓻𝓬𝓱 𝓞𝓯 𝓟𝓮𝓪𝓬𝓮 𝓘 𝓓𝓲𝓼𝓬𝓸𝓿𝓮𝓻𝓮𝓭 𝓟𝓻𝓸𝓰𝓻𝓪𝓶𝓶𝓲𝓷𝓰";
+  const fullText = "𝓘𝓷 𝓽𝓱𝓮 𝓢𝓮𝓪𝓻𝓬𝓱 𝓯𝓸𝓻 𝓟𝓮𝓪𝓬𝓮, 𝓘 𝓕𝓸𝓾𝓷𝓭 𝓟𝓻𝓸𝓰𝓻𝓪𝓶𝓶𝓲𝓷𝓰.";
   const typingSpeed = 90;
+
+  // Aggressively start loading/playing the intro video ASAP.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    try {
+      v.preload = 'auto';
+      v.load();
+      // Autoplay should work because it's muted, but we still guard it.
+      void v.play();
+    } catch {
+      // ignore
+    }
+  }, []);
   
   // Cursor blink animation
   useEffect(() => {
@@ -85,11 +100,10 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="intro-video"
-        >
-          <source src={introBackgroundVideo} type="video/mp4" />
-        </video>
+          src={introBackgroundVideo}
+        />
         <div className="intro-video-overlay" />
       </div>
       

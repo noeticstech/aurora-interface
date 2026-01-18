@@ -58,10 +58,10 @@
   font-size: clamp(0.75rem, 2.5vw, 1.75rem);
   font-weight: 300;
   letter-spacing: 0.15em;
-  color: #fff;
+  color: #d4a574;
   text-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.3),
-    0 0 40px rgba(255, 255, 255, 0.1);
+    0 0 20px rgba(212, 165, 116, 0.4),
+    0 0 40px rgba(212, 165, 116, 0.2);
   line-height: 1.6;
 }
 

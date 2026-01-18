@@ -15,7 +15,7 @@ const IntroScreen = ({ onComplete }: IntroScreenProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   const fullText = "𝓘𝓷 𝓢𝓮𝓪𝓻𝓬𝓱 𝓞𝓯 𝓟𝓮𝓪𝓬𝓮 𝓘 𝓓𝓲𝓼𝓬𝓸𝓿𝓮𝓻𝓮𝓭 𝓟𝓻𝓸𝓰𝓻𝓪𝓶𝓶𝓲𝓷𝓰";
-  const typingSpeed = 120;
+  const typingSpeed = 90;
   
   // Cursor blink animation
   useEffect(() => {

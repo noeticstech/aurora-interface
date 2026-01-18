@@ -13,7 +13,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 import cutoutWorks from '@/assets/cutout-works.png';
 import cutoutArsenal from '@/assets/cutout-arsenal.png';
-import cutoutCredentials from '@/assets/cutout-credentials.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,8 +48,6 @@ const PortfolioContent = () => {
   const worksRef = useRef<HTMLElement>(null);
   const blogRef = useRef<HTMLElement>(null);
   const certRef = useRef<HTMLElement>(null);
-  const credentialsCutoutRef = useRef<HTMLDivElement>(null);
-  const codeRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const sections = sectionsRef.current;
@@ -166,48 +163,6 @@ const PortfolioContent = () => {
       });
     }
 
-    // Credentials cutout slides in from right when entering Certifications section
-    if (credentialsCutoutRef.current && certRef.current) {
-      // Set initial position off-screen to the right
-      gsap.set(credentialsCutoutRef.current, { xPercent: 100, opacity: 1 });
-
-      // Slide in from right (100% to 0%) as we approach certifications section
-      ScrollTrigger.create({
-        trigger: certRef.current,
-        scroller: scrollRef.current,
-        start: 'top 100%',
-        end: 'top 40%',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          if (credentialsCutoutRef.current) {
-            const xPos = (1 - self.progress) * 100;
-            gsap.set(credentialsCutoutRef.current, { xPercent: xPos });
-          }
-        }
-      });
-    }
-
-    // Blur out credentials cutout when reaching Code section
-    if (credentialsCutoutRef.current && codeRef.current) {
-      ScrollTrigger.create({
-        trigger: codeRef.current,
-        scroller: scrollRef.current,
-        start: 'top 100%',
-        end: 'top 50%',
-        scrub: 1,
-        onUpdate: (self) => {
-          if (credentialsCutoutRef.current) {
-            const blur = self.progress * 20;
-            const opacity = 1 - self.progress;
-            gsap.set(credentialsCutoutRef.current, { 
-              filter: `blur(${blur}px)`,
-              opacity: opacity
-            });
-          }
-        }
-      });
-    }
-
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -261,7 +216,7 @@ const PortfolioContent = () => {
         />
       </div>
 
-      {/* Arsenal Cutout - slides in from below when entering Blog section */}
+      {/* Arsenal Cutout - slides in from below when entering Arsenal section */}
       <div 
         ref={arsenalCutoutRef}
         className="fixed inset-0 pointer-events-none z-[5]"
@@ -272,22 +227,6 @@ const PortfolioContent = () => {
             backgroundImage: `url(${cutoutArsenal})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center bottom',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
-      </div>
-
-      {/* Credentials Cutout - slides in from right when entering Certifications section */}
-      <div 
-        ref={credentialsCutoutRef}
-        className="fixed inset-0 pointer-events-none z-[5]"
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${cutoutCredentials})`,
-            backgroundSize: 'contain',
-            backgroundPosition: 'right bottom',
             backgroundRepeat: 'no-repeat'
           }}
         />
@@ -367,7 +306,7 @@ const PortfolioContent = () => {
         </section>
 
         {/* Code Section */}
-        <section ref={(el) => { addToRefs(el); codeRef.current = el; }} className="flex flex-col py-16">
+        <section ref={addToRefs} className="flex flex-col py-16">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
             <span>Code</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />

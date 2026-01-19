@@ -115,36 +115,36 @@ export default function CertificationShowcase() {
   const activeCert = CERTIFICATIONS[activeIndex];
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative h-screen w-full overflow-hidden flex flex-col">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_hsl(45_93%_58%_/_0.03),_transparent_50%)]" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
 
-      {/* Header */}
+      {/* Header - positioned at top */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-20 text-center pt-12 pb-6 px-4"
+        className="relative z-20 text-center pt-6 pb-2 px-4 flex-shrink-0"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 backdrop-blur border border-border mb-6">
-          <Award className="w-4 h-4 text-gold" />
-          <span className="text-sm font-medium text-muted-foreground">Professional Certifications</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/50 backdrop-blur border border-border mb-3">
+          <Award className="w-3.5 h-3.5 text-gold" />
+          <span className="text-xs font-medium text-muted-foreground">Professional Certifications</span>
         </div>
 
-        <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+        <h1 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
           <span className="text-foreground">My </span>
           <span className="gold-text">Credentials</span>
         </h1>
 
-        <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-          Scroll or drag to explore my professional certifications and achievements
+        <p className="text-muted-foreground text-sm max-w-md mx-auto">
+          Scroll or drag to explore my professional certifications
         </p>
       </motion.header>
 
       {/* Main content area */}
-      <div className="relative z-10 flex flex-col items-center justify-center">
+      <div className="relative z-10 flex flex-col items-center justify-center flex-1">
         {/* Center card */}
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -153,7 +153,7 @@ export default function CertificationShowcase() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: -18 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-30 mb-8"
+            className="relative z-30 mb-4"
           >
             <CertificationCard certification={activeCert} />
           </motion.div>
@@ -164,15 +164,15 @@ export default function CertificationShowcase() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="flex items-center gap-4 mb-8"
+          className="flex items-center gap-3 mb-4"
         >
           <button
             onClick={handlePrev}
-            className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
+            className="w-9 h-9 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
             aria-label="Previous certification"
             type="button"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
 
           <div className="flex gap-2" aria-label="Certification navigation">
@@ -181,7 +181,7 @@ export default function CertificationShowcase() {
                 key={index}
                 onClick={() => handleDotClick(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? 'w-8 bg-gold' : 'bg-muted hover:bg-muted-foreground'
+                  index === activeIndex ? 'w-6 bg-gold' : 'bg-muted hover:bg-muted-foreground'
                 }`}
                 aria-label={`Go to certification ${index + 1}`}
                 type="button"
@@ -191,11 +191,11 @@ export default function CertificationShowcase() {
 
           <button
             onClick={handleNext}
-            className="w-10 h-10 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
+            className="w-9 h-9 rounded-full bg-secondary/50 backdrop-blur border border-border flex items-center justify-center text-muted-foreground hover:text-gold hover:border-gold/50 transition-all duration-300"
             aria-label="Next certification"
             type="button"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </motion.div>
 
@@ -204,14 +204,14 @@ export default function CertificationShowcase() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-center mb-4"
+          className="text-center"
           aria-label="Certification counter"
         >
-          <span className="font-display text-5xl font-bold gold-text">
+          <span className="font-display text-3xl font-bold gold-text">
             {String(activeIndex + 1).padStart(2, '0')}
           </span>
-          <span className="text-muted-foreground text-2xl font-light mx-2">/</span>
-          <span className="text-muted-foreground text-2xl font-light">
+          <span className="text-muted-foreground text-xl font-light mx-2">/</span>
+          <span className="text-muted-foreground text-xl font-light">
             {String(CERTIFICATIONS.length).padStart(2, '0')}
           </span>
         </motion.div>

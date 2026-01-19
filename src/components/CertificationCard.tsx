@@ -18,9 +18,9 @@ interface CertificationCardProps {
 
 export default function CertificationCard({ certification }: CertificationCardProps) {
   return (
-    <article className="cert-card w-full max-w-md rounded-2xl overflow-hidden hover-lift animate-pulse-gold">
+    <article className="cert-card w-full max-w-sm rounded-2xl overflow-hidden transition-transform duration-300 hover:scale-[1.02]">
       {/* Header with gradient */}
-      <div className="relative h-32 overflow-hidden">
+      <div className="relative h-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-gold-dark/10 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_hsl(45_100%_70%_/_0.15),_transparent_50%)]" />
 
@@ -49,12 +49,12 @@ export default function CertificationCard({ certification }: CertificationCardPr
       </div>
 
       {/* Content */}
-      <div className="p-6 space-y-4">
+      <div className="p-4 space-y-3">
         <motion.h3
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.05 }}
-          className="font-display text-2xl font-semibold text-foreground leading-tight"
+          className="font-display text-xl font-semibold text-foreground leading-tight"
         >
           {certification.title}
         </motion.h3>
@@ -95,7 +95,7 @@ export default function CertificationCard({ certification }: CertificationCardPr
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.24 }}
-          className="flex flex-wrap gap-2 pt-2"
+          className="flex flex-wrap gap-1.5 pt-1"
           aria-label="Certification skills"
         >
           {certification.skills.map((skill, index) => (

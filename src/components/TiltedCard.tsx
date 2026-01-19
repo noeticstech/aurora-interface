@@ -140,9 +140,8 @@ export default function TiltedCard({
             playsInline
             preload="auto"
             className="tilted-card-video"
-          >
-            <source src={videoSrc} type="video/mp4" />
-          </video>
+            src={videoSrc}
+          />
         )}
         
         {/* Static Image Background (fallback) */}

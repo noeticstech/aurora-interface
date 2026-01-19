@@ -179,8 +179,9 @@
   }
 
   .cert-card {
-    background: var(--gradient-card);
-    border: 1px solid hsl(var(--border) / 0.6);
+    background: hsl(var(--card) / 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--gold) / 0.2);
   }
 
   .gold-glow {

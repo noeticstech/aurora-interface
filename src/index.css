@@ -180,8 +180,7 @@
 
   .cert-card {
     background: var(--gradient-card);
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card), var(--shadow-gold);
+    border: 1px solid hsl(var(--border) / 0.6);
   }
 
   .gold-glow {

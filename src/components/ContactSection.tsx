@@ -69,7 +69,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="glass-card p-6"
+            className="p-6"
           >
             <h2 className="text-2xl md:text-3xl font-display font-bold mb-3 text-foreground">
               Let's Connect
@@ -96,7 +96,6 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass-card"
           >
             <CodingPlatforms />
           </motion.div>
@@ -107,7 +106,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="glass-card p-6"
+            className="p-6"
           >
             <p className="text-sm text-muted-foreground mb-4">Quick links</p>
             <div className="flex flex-col gap-3">
@@ -134,7 +133,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="glass-card p-6 flex flex-col"
+            className="p-6 flex flex-col"
           >
             {/* Find me online heading */}
             <motion.div

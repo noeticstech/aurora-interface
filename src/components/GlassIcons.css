@@ -2,8 +2,10 @@
   display: grid;
   grid-gap: 1.5em;
   grid-template-columns: repeat(3, 1fr);
-  margin: auto;
-  padding: 1em 0;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5em;
   overflow: visible;
 }
 
@@ -11,8 +13,8 @@
   background-color: transparent;
   outline: none;
   position: relative;
-  width: 2em;
-  height: 2em;
+  width: 2.8em;
+  height: 2.8em;
   perspective: 12em;
   transform-style: preserve-3d;
   -webkit-tap-highlight-color: transparent;

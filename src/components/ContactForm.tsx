@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -41,33 +40,35 @@ export default function ContactForm() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: 0.3 }}
-      className="glass-card p-8 gradient-border"
-    >
-      <h3 className="text-2xl font-semibold mb-2">Send a message</h3>
-      <p className="text-muted-foreground text-sm mb-6">
-        Have a question or want to work together? Drop me a line.
-      </p>
+    <div className="glass-card p-6 h-full">
+      <div className="mb-6">
+        <h3 className="text-xl font-semibold text-foreground mb-2">
+          Send a message
+        </h3>
+        <p className="text-muted-foreground text-sm">
+          Have a question or want to work together? Drop me a line.
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name" className="text-foreground">
+            Name
+          </Label>
           <Input
             id="name"
             placeholder="Your name"
             value={formData.name}
             onChange={handleChange}
             required
-            className="bg-secondary/50 border-border/50 focus:border-primary/50 transition-colors"
+            className="bg-input border-border focus:border-primary/50 transition-colors"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email" className="text-foreground">
+            Email
+          </Label>
           <Input
             id="email"
             type="email"
@@ -75,20 +76,21 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             required
-            className="bg-secondary/50 border-border/50 focus:border-primary/50 transition-colors"
+            className="bg-input border-border focus:border-primary/50 transition-colors"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="message">Message</Label>
+          <Label htmlFor="message" className="text-foreground">
+            Message
+          </Label>
           <Textarea
             id="message"
             placeholder="Tell me about your project..."
             value={formData.message}
             onChange={handleChange}
             required
-            rows={5}
-            className="bg-secondary/50 border-border/50 focus:border-primary/50 transition-colors resize-none"
+            className="bg-input border-border focus:border-primary/50 transition-colors min-h-[100px] resize-none"
           />
         </div>
 
@@ -110,6 +112,6 @@ export default function ContactForm() {
           )}
         </Button>
       </form>
-    </motion.div>
+    </div>
   );
 }

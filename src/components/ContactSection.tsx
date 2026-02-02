@@ -16,22 +16,22 @@ const socialLinks: DockItemData[] = [
   {
     icon: <Linkedin size={20} />,
     label: 'LinkedIn',
-    onClick: () => window.open('https://www.linkedin.com/in/vaibhav-singh-kushwaha-1941813a1/', '_blank'),
+    onClick: () => window.open('https://www.linkedin.com/in/NoeticsTech', '_blank'),
   },
   {
     icon: <Twitter size={20} />,
     label: 'Twitter',
-    onClick: () => window.open('https://x.com/noeticstech', '_blank'),
+    onClick: () => window.open('https://x.com/NoeticsTech', '_blank'),
   },
   {
     icon: <Instagram size={20} />,
     label: 'Instagram',
-    onClick: () => window.open('https://instagram.com', '_blank'),
+    onClick: () => window.open('https://instagram.com/NoeticsTech', '_blank'),
   },
   {
     icon: <Facebook size={20} />,
     label: 'Facebook',
-    onClick: () => window.open('https://facebook.com', '_blank'),
+    onClick: () => window.open('https://facebook.com/NoeticsTech', '_blank'),
   },
   {
     icon: <Mail size={20} />,

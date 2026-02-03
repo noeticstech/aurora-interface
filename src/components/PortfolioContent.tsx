@@ -7,7 +7,6 @@ import ScrollVelocity from './ScrollVelocity';
 import MagicBento from './MagicBento';
 import ContactSection from './ContactSection';
 import BlogSection from './BlogSection';
-import CodeSection from './CodeSection';
 import AnimatedContent from './AnimatedContent';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -306,8 +305,19 @@ const PortfolioContent = () => {
           <CertificationShowcase />
         </section>
 
-        {/* Code Section - Full Width with Background */}
-        <CodeSection scrollContainerRef={scrollRef} />
+        {/* Code Section */}
+        <section ref={addToRefs} className="flex flex-col py-16">
+          <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
+            <span>Code</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
+          </h3>
+          
+          <div className="max-w-2xl space-y-8 text-muted-foreground leading-loose text-xl">
+            <p>I build systems that exist in the margins between visible and invisible.</p>
+            <p>Every line of code is a deliberate strike. Every interface, a blade forged in restraint.</p>
+            <p>I do not optimize for attention. I engineer for precision, silence, and endurance.</p>
+          </div>
+        </section>
 
         {/* Contact Section */}
         <section ref={addToRefs} className="flex flex-col py-16">

@@ -5,6 +5,7 @@ import Masonry from '@/components/ui/Masonry';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 import blogDesign from '@/assets/blog-design.jpg';
+import blogCode from '@/assets/blog-code.jpg';
 import blogArchitecture from '@/assets/blog-architecture.jpg';
 import blogWorkspace from '@/assets/blog-workspace.jpg';
 import blogArt from '@/assets/blog-art.jpg';
@@ -36,6 +37,16 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
+    img: blogCode,
+    title: 'Building Scalable React Applications with Modern Patterns',
+    category: 'Development',
+    date: 'Dec 20, 2025',
+    readTime: '8 min read',
+    height: 600,
+    url: '#'
+  },
+  {
+    id: 3,
     img: blogArchitecture,
     title: 'How Architecture Influences Digital Interface Design',
     category: 'Inspiration',
@@ -45,7 +56,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 3,
+    id: 4,
     img: blogArt,
     title: 'The Intersection of Art and Technology',
     category: 'Creative',
@@ -55,7 +66,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 4,
+    id: 5,
     img: blogWorkspace,
     title: 'Crafting the Perfect Creative Workspace',
     category: 'Lifestyle',
@@ -65,7 +76,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 5,
+    id: 6,
     img: blogTypography,
     title: 'Typography Trends Shaping 2026 Design',
     category: 'Design',
@@ -76,7 +87,7 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
-const categories = ['All', 'Design', 'Inspiration', 'Lifestyle', 'Creative'];
+const categories = ['All', 'Design', 'Development', 'Inspiration', 'Lifestyle', 'Creative'];
 
 interface BlogSectionProps {
   scrollContainerRef?: React.RefObject<HTMLElement>;

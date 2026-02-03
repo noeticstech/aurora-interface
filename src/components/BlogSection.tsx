@@ -32,7 +32,7 @@ const blogPosts: BlogPost[] = [
     category: 'Design',
     date: 'Dec 28, 2025',
     readTime: '5 min read',
-    height: 600,
+    height: 700,
     url: '#'
   },
   {
@@ -42,7 +42,7 @@ const blogPosts: BlogPost[] = [
     category: 'Development',
     date: 'Dec 20, 2025',
     readTime: '8 min read',
-    height: 700,
+    height: 600,
     url: '#'
   },
   {
@@ -57,22 +57,22 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 4,
-    img: blogWorkspace,
-    title: 'Crafting the Perfect Creative Workspace',
-    category: 'Lifestyle',
-    date: 'Dec 10, 2025',
-    readTime: '4 min read',
-    height: 650,
-    url: '#'
-  },
-  {
-    id: 5,
     img: blogArt,
     title: 'The Intersection of Art and Technology',
     category: 'Creative',
     date: 'Dec 5, 2025',
     readTime: '7 min read',
-    height: 550,
+    height: 600,
+    url: '#'
+  },
+  {
+    id: 5,
+    img: blogWorkspace,
+    title: 'Crafting the Perfect Creative Workspace',
+    category: 'Lifestyle',
+    date: 'Dec 10, 2025',
+    readTime: '4 min read',
+    height: 500,
     url: '#'
   },
   {
@@ -82,7 +82,7 @@ const blogPosts: BlogPost[] = [
     category: 'Design',
     date: 'Nov 28, 2025',
     readTime: '5 min read',
-    height: 520,
+    height: 400,
     url: '#'
   }
 ];
@@ -112,8 +112,8 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
       // Eyebrow line animation
       if (eyebrowRef.current) {
         gsap.fromTo(
-          eyebrowRef.current.querySelector('.eyebrow-line'),
-          { scaleX: 0, transformOrigin: 'left center' },
+          eyebrowRef.current.querySelectorAll('.eyebrow-line'),
+          { scaleX: 0 },
           {
             scaleX: 1,
             duration: 1,
@@ -129,10 +129,10 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
         
         gsap.fromTo(
           eyebrowRef.current.querySelector('.eyebrow-text'),
-          { opacity: 0, x: -20 },
+          { opacity: 0, y: 10 },
           {
             opacity: 1,
-            x: 0,
+            y: 0,
             duration: 0.8,
             delay: 0.3,
             ease: 'power3.out',
@@ -235,63 +235,69 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
       {/* Decorative floating elements */}
       <div className="absolute top-20 right-20 w-2 h-2 rounded-full bg-[hsl(var(--blog-accent))] opacity-40 animate-pulse" />
       <div className="absolute bottom-40 left-16 w-1.5 h-1.5 rounded-full bg-[hsl(var(--blog-accent-secondary))] opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
-      <div className="absolute top-1/3 left-1/4 w-1 h-1 rounded-full bg-[hsl(var(--blog-foreground))] opacity-20 animate-pulse" style={{ animationDelay: '2s' }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="mb-16 space-y-8">
-          {/* Eyebrow */}
-          <div ref={eyebrowRef} className="flex items-center gap-4">
-            <div className="eyebrow-line w-12 h-px bg-[hsl(var(--blog-accent))]" />
-            <span className="eyebrow-text text-xs tracking-[0.3em] uppercase text-[hsl(var(--blog-accent))] font-semibold">
-              Journal
-            </span>
-          </div>
-
-          {/* Main Title with Scroll Reveal */}
-          <div className="max-w-3xl">
-            <ScrollReveal
-              scrollContainerRef={scrollContainerRef}
-              enableBlur={true}
-              baseOpacity={0.15}
-              baseRotation={2}
-              blurStrength={6}
-              rotationEnd="center center"
-              wordAnimationEnd="center center"
-            >
-              Thoughts on Design, Code & Creativity
-            </ScrollReveal>
-          </div>
-
-          {/* Subtitle */}
-          <p ref={subtitleRef} className="max-w-xl text-[hsl(var(--blog-muted))] text-lg leading-relaxed">
-            Exploring the intersection of aesthetics and functionality. 
-            Ideas that shape the digital landscape.
-          </p>
-
-          {/* Category Filter */}
-          <div ref={filtersRef} className="flex flex-wrap gap-3 pt-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`
-                  px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300
-                  ${activeCategory === category 
-                    ? 'bg-[hsl(var(--blog-accent))] text-[hsl(var(--blog-background))] shadow-[0_0_20px_hsl(var(--blog-accent)/0.4)]' 
-                    : 'bg-secondary text-secondary-foreground hover:bg-muted hover:scale-105'
-                  }
-                `}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
+        {/* Journal Eyebrow - Full Width with centered text */}
+        <div ref={eyebrowRef} className="flex items-center justify-center gap-4 mb-12">
+          <div className="eyebrow-line flex-1 h-px bg-border origin-right" />
+          <span className="eyebrow-text text-xs tracking-[0.3em] uppercase text-primary font-semibold">
+            Journal
+          </span>
+          <div className="eyebrow-line flex-1 h-px bg-border origin-left" />
         </div>
 
-        {/* Masonry Grid */}
-        <div ref={masonryContainerRef}>
-          <Masonry items={filteredPosts} />
+        {/* Two Column Layout - Left narrow, Right wide for blogs */}
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 lg:gap-12">
+          {/* Left Column - Header */}
+          <div className="space-y-6">
+            {/* Decorative dot */}
+            <div className="w-2 h-2 rounded-full bg-primary" />
+            
+            {/* Main Title with Scroll Reveal - Smaller size */}
+            <div>
+              <ScrollReveal
+                scrollContainerRef={scrollContainerRef}
+                enableBlur={true}
+                baseOpacity={0.15}
+                baseRotation={2}
+                blurStrength={6}
+                rotationEnd="center center"
+                wordAnimationEnd="center center"
+              >
+                Thoughts on Design, Code & Creativity
+              </ScrollReveal>
+            </div>
+
+            {/* Subtitle */}
+            <p ref={subtitleRef} className="text-muted-foreground text-sm leading-relaxed">
+              Exploring the intersection of aesthetics and functionality. 
+              Ideas that shape the digital landscape.
+            </p>
+
+            {/* Category Filter */}
+            <div ref={filtersRef} className="flex flex-wrap gap-2 pt-2">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`
+                    px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300
+                    ${activeCategory === category 
+                      ? 'bg-primary text-primary-foreground shadow-glow' 
+                      : 'bg-secondary text-secondary-foreground hover:bg-muted hover:scale-105'
+                    }
+                  `}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Masonry Grid */}
+          <div ref={masonryContainerRef}>
+            <Masonry items={filteredPosts} />
+          </div>
         </div>
       </div>
     </section>

@@ -82,8 +82,8 @@ const preloadImages = async (urls: string[]): Promise<void> => {
 const Masonry = ({
   items,
   ease = 'power3.out',
-  duration = 0.6,
-  stagger = 0.05,
+  duration = 1.2,
+  stagger = 0.15,
   animateFrom = 'bottom',
   scaleOnHover = true,
   hoverScale = 0.97,
@@ -92,8 +92,8 @@ const Masonry = ({
   onItemClick
 }: MasonryProps) => {
   const columns = useMedia(
-    ['(min-width:1500px)', '(min-width:1000px)', '(min-width:600px)', '(min-width:400px)'],
-    [4, 3, 2, 2],
+    ['(min-width:1000px)', '(min-width:600px)'],
+    [3, 2],
     1
   );
 
@@ -195,8 +195,8 @@ const Masonry = ({
           opacity: 1,
           ...animationProps,
           ...(blurToFocus && { filter: 'blur(0px)' }),
-          duration: 0.8,
-          ease: 'power3.out',
+          duration: 1.4,
+          ease: 'power2.out',
           delay: index * stagger
         });
       } else {
@@ -293,9 +293,9 @@ const Masonry = ({
                 {item.date && <span className="masonry-item-date">{item.date}</span>}
                 {item.readTime && (
                   <span className="masonry-item-read-time">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
+                      <path d="M12 6v6l4 2" />
                     </svg>
                     {item.readTime}
                   </span>

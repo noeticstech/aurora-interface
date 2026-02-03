@@ -281,22 +281,6 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
                 </button>
               ))}
             </div>
-
-            {/* Favourite Quote */}
-            <div className="mt-8 pt-6 border-t border-border">
-              <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">
-                Favourite Quote
-              </span>
-              <blockquote className="mt-4 relative">
-                <span className="absolute -left-2 -top-2 text-4xl text-primary/20 font-serif">"</span>
-                <p className="text-foreground/90 text-sm leading-relaxed italic pl-4">
-                  The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.
-                </p>
-                <footer className="mt-3 pl-4 text-xs text-muted-foreground">
-                  — Steve Jobs
-                </footer>
-              </blockquote>
-            </div>
           </div>
 
           {/* Right Column - Masonry Grid */}

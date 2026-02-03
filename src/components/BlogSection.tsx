@@ -5,7 +5,6 @@ import Masonry from '@/components/ui/Masonry';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 import blogDesign from '@/assets/blog-design.jpg';
-import blogCode from '@/assets/blog-code.jpg';
 import blogArchitecture from '@/assets/blog-architecture.jpg';
 import blogWorkspace from '@/assets/blog-workspace.jpg';
 import blogArt from '@/assets/blog-art.jpg';
@@ -37,16 +36,6 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: 2,
-    img: blogCode,
-    title: 'Building Scalable React Applications with Modern Patterns',
-    category: 'Development',
-    date: 'Dec 20, 2025',
-    readTime: '8 min read',
-    height: 600,
-    url: '#'
-  },
-  {
-    id: 3,
     img: blogArchitecture,
     title: 'How Architecture Influences Digital Interface Design',
     category: 'Inspiration',
@@ -56,7 +45,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 4,
+    id: 3,
     img: blogArt,
     title: 'The Intersection of Art and Technology',
     category: 'Creative',
@@ -66,7 +55,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 5,
+    id: 4,
     img: blogWorkspace,
     title: 'Crafting the Perfect Creative Workspace',
     category: 'Lifestyle',
@@ -76,7 +65,7 @@ const blogPosts: BlogPost[] = [
     url: '#'
   },
   {
-    id: 6,
+    id: 5,
     img: blogTypography,
     title: 'Typography Trends Shaping 2026 Design',
     category: 'Design',
@@ -87,7 +76,7 @@ const blogPosts: BlogPost[] = [
   }
 ];
 
-const categories = ['All', 'Design', 'Development', 'Inspiration', 'Lifestyle', 'Creative'];
+const categories = ['All', 'Design', 'Inspiration', 'Lifestyle', 'Creative'];
 
 interface BlogSectionProps {
   scrollContainerRef?: React.RefObject<HTMLElement>;
@@ -291,6 +280,22 @@ const BlogSection = ({ scrollContainerRef }: BlogSectionProps) => {
                   {category}
                 </button>
               ))}
+            </div>
+
+            {/* Favourite Quote */}
+            <div className="mt-8 pt-6 border-t border-border">
+              <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">
+                Favourite Quote
+              </span>
+              <blockquote className="mt-4 relative">
+                <span className="absolute -left-2 -top-2 text-4xl text-primary/20 font-serif">"</span>
+                <p className="text-foreground/90 text-sm leading-relaxed italic pl-4">
+                  The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.
+                </p>
+                <footer className="mt-3 pl-4 text-xs text-muted-foreground">
+                  — Steve Jobs
+                </footer>
+              </blockquote>
             </div>
           </div>
 

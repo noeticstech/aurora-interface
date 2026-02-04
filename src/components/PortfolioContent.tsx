@@ -8,11 +8,42 @@ import MagicBento from './MagicBento';
 import ContactSection from './ContactSection';
 import BlogSection from './BlogSection';
 import AnimatedContent from './AnimatedContent';
+import CardNav from './CardNav';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
 import cutoutWorks from '@/assets/cutout-works.png';
 import cutoutArsenal from '@/assets/cutout-arsenal.png';
+
+const navItems = [
+  {
+    label: 'About',
+    bgColor: 'hsl(var(--accent))',
+    textColor: 'hsl(var(--accent-foreground))',
+    links: [
+      { label: 'My Story', href: '#about', ariaLabel: 'Learn about me' },
+      { label: 'Experience', href: '#experience', ariaLabel: 'View experience' }
+    ]
+  },
+  {
+    label: 'Projects',
+    bgColor: 'hsl(var(--primary))',
+    textColor: 'hsl(var(--primary-foreground))',
+    links: [
+      { label: 'Selected Works', href: '#works', ariaLabel: 'View selected works' },
+      { label: 'All Projects', href: '#projects', ariaLabel: 'View all projects' }
+    ]
+  },
+  {
+    label: 'Contact',
+    bgColor: 'hsl(var(--secondary))',
+    textColor: 'hsl(var(--secondary-foreground))',
+    links: [
+      { label: 'Get in Touch', href: '#contact', ariaLabel: 'Contact me' },
+      { label: 'Social Links', href: '#social', ariaLabel: 'View social links' }
+    ]
+  }
+];
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -231,6 +262,12 @@ const PortfolioContent = () => {
           }}
         />
       </div>
+
+      {/* Navigation */}
+      <CardNav
+        logoText="𝙽𝚘𝚎𝚝𝚒𝚌𝚜𝚃𝚎𝚌𝚑"
+        items={navItems}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-8 py-16">
         

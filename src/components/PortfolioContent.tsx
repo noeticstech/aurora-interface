@@ -9,6 +9,7 @@ import ContactSection from './ContactSection';
 import BlogSection from './BlogSection';
 import AnimatedContent from './AnimatedContent';
 import CardNav from './CardNav';
+import SkillArsenal from './SkillArsenal';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import portfolioBgMountain from '@/assets/portfolio-bg-mountain.png';
@@ -340,6 +341,11 @@ const PortfolioContent = () => {
         {/* Certifications */}
         <section ref={(el) => { addToRefs(el); certRef.current = el; }} className="flex flex-col py-16">
           <CertificationShowcase />
+        </section>
+
+        {/* Skill Arsenal */}
+        <section ref={addToRefs} className="flex flex-col py-16">
+          <SkillArsenal />
         </section>
 
         {/* Code Section */}

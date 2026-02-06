@@ -348,17 +348,24 @@ const PortfolioContent = () => {
           <SkillArsenal />
         </section>
 
-        {/* Code Section */}
+        {/* Quote Section */}
         <section ref={addToRefs} className="flex flex-col py-16">
           <h3 className="text-xs tracking-[0.4em] text-muted-foreground uppercase mb-16 flex items-center gap-4">
-            <span>Code</span>
+            <span>Words to Live By</span>
             <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
           </h3>
           
-          <div className="max-w-2xl space-y-8 text-muted-foreground leading-loose text-xl">
-            <p>I build systems that exist in the margins between visible and invisible.</p>
-            <p>Every line of code is a deliberate strike. Every interface, a blade forged in restraint.</p>
-            <p>I do not optimize for attention. I engineer for precision, silence, and endurance.</p>
+          <div className="max-w-3xl">
+            <blockquote className="relative">
+              <div className="absolute -left-4 top-0 text-6xl text-primary/20 font-display leading-none">"</div>
+              <p className="text-2xl md:text-3xl lg:text-4xl font-display text-foreground leading-relaxed pl-8">
+                The path of the solitary warrior is not chosen out of weakness, but carved through the silence where others feared to tread.
+              </p>
+              <div className="absolute -right-4 bottom-0 text-6xl text-primary/20 font-display leading-none rotate-180">"</div>
+            </blockquote>
+            <p className="mt-8 text-muted-foreground text-lg pl-8 italic">
+              — To those who fight their battles alone, your strength is forged in shadows no one else can see.
+            </p>
           </div>
         </section>
 
